@@ -3,6 +3,7 @@ import {
   loginUser,
   registerUser,
   signInWithGoogle,
+  logoutUserThunk,
 } from "../thunks/authThunks";
 
 const initialState = {
@@ -73,6 +74,16 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(signInWithGoogle.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      // Logout cases
+      .addCase(logoutUserThunk.fulfilled, (state) => {
+        state.loading = false;
+        state.user = null;
+        state.error = null;
+      })
+      .addCase(logoutUserThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

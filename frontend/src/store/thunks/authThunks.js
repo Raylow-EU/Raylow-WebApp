@@ -5,20 +5,19 @@ import {
   loginWithGoogle,
   logoutUser,
   fetchUserData,
-} from "../../firebase/auth";
-import { setUser, setLoading, setError, logout } from "../slices/authSlice";
+} from "../../supabase/auth";
 
 // Helper to extract serializable user data
 const extractUserData = async (user) => {
   const baseData = {
-    uid: user.uid,
+    uid: user.id,
     email: user.email,
-    displayName: user.displayName || "",
+    displayName: user.user_metadata?.full_name || "",
   };
 
-  // Fetch additional user data from Firestore
+  // Fetch additional user data from Supabase
   try {
-    const userData = await fetchUserData(user.uid);
+    const userData = await fetchUserData(user.id);
     return {
       ...baseData,
       isAdmin: userData?.isAdmin || false,
@@ -34,10 +33,9 @@ export const registerUser = createAsyncThunk(
   "auth/register",
   async (
     { email, password, fullName, companyName, skipOnboarding },
-    { dispatch }
+    { rejectWithValue }
   ) => {
     try {
-      dispatch(setLoading(true));
       const userCredential = await registerWithEmailAndPassword(
         email,
         password,
@@ -45,57 +43,47 @@ export const registerUser = createAsyncThunk(
         skipOnboarding ? { companyName } : null
       );
       const userData = await extractUserData(userCredential);
-      dispatch(setUser(userData));
       return userData;
     } catch (error) {
-      dispatch(setError(error.message));
-      throw error;
+      return rejectWithValue(error.message);
     }
   }
 );
 
 export const loginUser = createAsyncThunk(
   "auth/login",
-  async ({ email, password }, { dispatch }) => {
+  async ({ email, password }, { rejectWithValue }) => {
     try {
-      dispatch(setLoading(true));
       const userCredential = await loginWithEmailAndPassword(email, password);
       const userData = await extractUserData(userCredential);
-      dispatch(setUser(userData));
       return userData;
     } catch (error) {
-      dispatch(setError(error.message));
-      throw error;
+      return rejectWithValue(error.message);
     }
   }
 );
 
 export const signInWithGoogle = createAsyncThunk(
   "auth/googleSignIn",
-  async (_, { dispatch }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      dispatch(setLoading(true));
       const userCredential = await loginWithGoogle();
       const userData = await extractUserData(userCredential);
-      dispatch(setUser(userData));
       return userData;
     } catch (error) {
-      dispatch(setError(error.message));
-      throw error;
+      return rejectWithValue(error.message);
     }
   }
 );
 
 export const logoutUserThunk = createAsyncThunk(
   "auth/logout",
-  async (_, { dispatch }) => {
+  async (_, { rejectWithValue }) => {
     try {
       await logoutUser();
-      dispatch(logout());
       return null;
     } catch (error) {
-      dispatch(setError(error.message));
-      throw error;
+      return rejectWithValue(error.message);
     }
   }
 );

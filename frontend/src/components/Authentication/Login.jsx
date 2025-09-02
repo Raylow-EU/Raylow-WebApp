@@ -1,19 +1,18 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { registerUser, signInWithGoogle } from "../../store/thunks/authThunks";
-import { User, Mail, Lock, AlertCircle } from "lucide-react";
-import "./Signup.css";
+import { loginUser, signInWithGoogle } from "../../store/thunks/authThunks";
+import { Mail, Lock, AlertCircle } from "lucide-react";
+import "./Login.css";
 import googleIcon from "../../assets/google.png";
 import logo from "../../assets/logo.png";
 
-const Signup = () => {
+const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
-    fullName: "",
     email: "",
     password: "",
   });
@@ -29,10 +28,23 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await dispatch(registerUser(formData)).unwrap();
+      console.log("Attempting login with:", {
+        email: formData.email,
+        passwordLength: formData.password.length,
+      });
+      const result = await dispatch(loginUser(formData)).unwrap();
+      console.log("Login successful, result:", result);
       navigate("/dashboard");
     } catch (error) {
-      console.error("Signup failed:", error);
+      console.error("Login failed:", error);
+      console.error("Full error object:", JSON.stringify(error, null, 2));
+      // Log more details about the error
+      if (error.message) {
+        console.error("Error message:", error.message);
+      }
+      if (error.details) {
+        console.error("Error details:", error.details);
+      }
     }
   };
 
@@ -65,8 +77,8 @@ const Signup = () => {
 
         <div className="auth-card">
           <div className="auth-card-content">
-            <h1>Create an Account</h1>
-            <p className="subtitle">Join us to simplify your CSRD compliance</p>
+            <h1>Welcome Back</h1>
+            <p className="subtitle">Login to your account</p>
 
             {error && (
               <div className="error-message">
@@ -76,22 +88,6 @@ const Signup = () => {
             )}
 
             <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="fullName">Full name</label>
-                <div className="input-wrapper">
-                  <User size={18} className="input-icon" />
-                  <input
-                    type="text"
-                    id="fullName"
-                    name="fullName"
-                    placeholder="John Doe"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <div className="input-wrapper">
@@ -109,7 +105,12 @@ const Signup = () => {
               </div>
 
               <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <div className="label-row">
+                  <label htmlFor="password">Password</label>
+                  <Link to="/forgot-password" className="forgot-password">
+                    Forgot password?
+                  </Link>
+                </div>
                 <div className="input-wrapper">
                   <Lock size={18} className="input-icon" />
                   <input
@@ -125,7 +126,7 @@ const Signup = () => {
               </div>
 
               <button type="submit" className="submit-btn" disabled={loading}>
-                {loading ? "Creating Account..." : "Sign Up"}
+                {loading ? "Logging in..." : "Login"}
               </button>
 
               <div className="divider">
@@ -139,11 +140,11 @@ const Signup = () => {
                 disabled={loading}
               >
                 <img src={googleIcon || "/placeholder.svg"} alt="Google" />
-                Sign up with Google
+                Sign in with Google
               </button>
 
               <p className="auth-link">
-                Already have an account? <Link to="/login">Log in</Link>
+                Don&apos;t have an account? <Link to="/signup">Sign up</Link>
               </p>
             </form>
           </div>
@@ -160,4 +161,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
