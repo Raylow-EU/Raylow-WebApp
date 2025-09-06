@@ -4,6 +4,7 @@ import {
   registerUser,
   signInWithGoogle,
   logoutUserThunk,
+  completeBasicOnboarding,
 } from "../thunks/authThunks";
 
 const initialState = {
@@ -78,12 +79,38 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
       // Logout cases
+      .addCase(logoutUserThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
       .addCase(logoutUserThunk.fulfilled, (state) => {
         state.loading = false;
         state.user = null;
         state.error = null;
       })
       .addCase(logoutUserThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      // Onboarding cases
+      .addCase(completeBasicOnboarding.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(completeBasicOnboarding.fulfilled, (state, action) => {
+        state.loading = false;
+        if (state.user) {
+          state.user = {
+            ...state.user,
+            onboardingBasicCompleted: action.payload.onboardingBasicCompleted,
+            fullName: action.payload.fullName,
+            companyId: action.payload.companyId,
+            companyRole: action.payload.companyRole
+          };
+        }
+        state.error = null;
+      })
+      .addCase(completeBasicOnboarding.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
