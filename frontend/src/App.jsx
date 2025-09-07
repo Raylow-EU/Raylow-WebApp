@@ -54,9 +54,8 @@ const OnboardingRoute = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
-  // Check if basic onboarding is completed
-  // If onboardingBasicCompleted is undefined/null, assume not completed
-  if (!user.onboardingBasicCompleted) {
+  // Check if onboarding is completed (support both flags)
+  if (!(user.onboardingBasicCompleted || user.onboardingCompleted)) {
     return <Navigate to="/onboarding" />;
   }
 
@@ -77,7 +76,7 @@ const OnboardingPage = () => {
 
   const handleOnboardingComplete = () => {
     // After successful onboarding, redirect to dashboard
-    navigate('/dashboard');
+    navigate("/dashboard");
   };
 
   return <BasicOnboardingForm onComplete={handleOnboardingComplete} />;
@@ -88,7 +87,7 @@ const Dashboard = () => {
   const { user, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const handleLogout = async () => {
     try {
       await dispatch(logoutUserThunk()).unwrap();
@@ -97,10 +96,10 @@ const Dashboard = () => {
       console.error("Logout failed:", error);
     }
   };
-  
+
   return (
     <div style={{ padding: "2rem", textAlign: "center", position: "relative" }}>
-      <button 
+      <button
         onClick={handleLogout}
         disabled={loading}
         style={{
@@ -113,15 +112,18 @@ const Dashboard = () => {
           border: "none",
           borderRadius: "4px",
           cursor: loading ? "not-allowed" : "pointer",
-          fontSize: "14px"
+          fontSize: "14px",
         }}
       >
         {loading ? "Logging out..." : "Logout"}
       </button>
-      
+
       <h1>Welcome to Raylow!</h1>
       <p>Hello, {user?.displayName || user?.fullName || user?.email}!</p>
-      <p>This is a placeholder dashboard. The full app features will be available in the main application.</p>
+      <p>
+        This is a placeholder dashboard. The full app features will be available
+        in the main application.
+      </p>
     </div>
   );
 };

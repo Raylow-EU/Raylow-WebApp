@@ -72,22 +72,22 @@ export const registerWithEmailAndPassword = async (
 
 export const loginWithEmailAndPassword = async (email, password) => {
   try {
-    console.log('Attempting login with email:', email);
-    
+    console.log("Attempting login with email:", email);
+
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     if (error) {
-      console.error('Supabase login error details:', error);
-      throw new Error(error.message || 'Login failed');
+      console.error("Supabase login error details:", error);
+      throw new Error(error.message || "Login failed");
     }
 
-    console.log('Login successful, user:', data.user);
+    console.log("Login successful, user:", data.user);
     return data.user;
   } catch (error) {
-    console.error('Login error:', error);
+    console.error("Login error:", error);
     throw error;
   }
 };
@@ -118,7 +118,9 @@ export const fetchUserData = async (uid) => {
   try {
     const { data, error } = await supabase
       .from("users")
-      .select("*")
+      .select(
+        "id, email, full_name, is_admin, onboarding_completed, onboarding_basic_completed_at"
+      )
       .eq("id", uid)
       .single();
 
@@ -132,6 +134,7 @@ export const fetchUserData = async (uid) => {
       displayName: data.full_name,
       isAdmin: data.is_admin,
       onboardingCompleted: data.onboarding_completed,
+      onboardingBasicCompleted: !!data.onboarding_basic_completed_at,
     };
   } catch (error) {
     console.error("Error fetching user data:", error);

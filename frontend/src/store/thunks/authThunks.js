@@ -22,6 +22,7 @@ const extractUserData = async (user) => {
       ...baseData,
       isAdmin: userData?.isAdmin || false,
       onboardingCompleted: userData?.onboardingCompleted || false,
+      onboardingBasicCompleted: userData?.onboardingBasicCompleted || false,
     };
   } catch (error) {
     console.error("Error fetching user data:", error);
@@ -93,28 +94,31 @@ export const completeBasicOnboarding = createAsyncThunk(
   async (onboardingData, { rejectWithValue }) => {
     try {
       const url = `${import.meta.env.VITE_API_BASE_URL}/onboarding/basic`;
-      console.log('ENV VITE_API_BASE_URL:', import.meta.env.VITE_API_BASE_URL);
-      console.log('Making onboarding request to:', url);
-      console.log('With data:', onboardingData);
-      
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/onboarding/basic`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(onboardingData),
-      });
+      console.log("ENV VITE_API_BASE_URL:", import.meta.env.VITE_API_BASE_URL);
+      console.log("Making onboarding request to:", url);
+      console.log("With data:", onboardingData);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/onboarding/basic`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(onboardingData),
+        }
+      );
 
       const data = await response.json();
-      console.log('Server response:', data);
+      console.log("Server response:", data);
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to complete onboarding');
+        throw new Error(data.error || "Failed to complete onboarding");
       }
 
       return data.user;
     } catch (error) {
-      console.error('Onboarding API error:', error);
+      console.error("Onboarding API error:", error);
       return rejectWithValue(error.message);
     }
   }
