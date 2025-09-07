@@ -74,18 +74,34 @@ export const loginWithEmailAndPassword = async (email, password) => {
   try {
     console.log("Attempting login with email:", email);
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    // Use backend login API instead of direct Supabase
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/auth/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      }
+    );
 
-    if (error) {
-      console.error("Supabase login error details:", error);
-      throw new Error(error.message || "Login failed");
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Login failed");
     }
 
     console.log("Login successful, user:", data.user);
-    return data.user;
+
+    // Return user in the same format as Supabase
+    return {
+      id: data.user.uid,
+      email: data.user.email,
+      user_metadata: {
+        full_name: data.user.displayName,
+      },
+    };
   } catch (error) {
     console.error("Login error:", error);
     throw error;
