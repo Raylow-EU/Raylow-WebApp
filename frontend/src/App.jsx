@@ -13,15 +13,28 @@ import Login from "./components/Authentication/Login";
 import Signup from "./components/Authentication/Signup";
 import BasicOnboardingForm from "./features/onboarding/BasicOnboardingForm";
 import { logoutUserThunk } from "./store/thunks/authThunks";
+import ResumePage from "./components/Resume_Page/ResumePage.jsx";
+import WelcomeGDPR from "./components/Regulations/GDPR/Welcome/Welcome.jsx";
+import WelcomeAI from "./components/Regulations/AIAct/Welcome/Welcome.jsx";
+import WelcomeCSRD from "./components/Regulations/CSRD/Welcome/Welcome.jsx";
+import GDPRFlashcards from "./components/Regulations/GDPR/Flashcards/Flashcards.jsx";
+import AIFlashcards from "./components/Regulations/AIAct/Flashcards/Flashcards.jsx";
+import CSRDFlashcards from "./components/Regulations/CSRD/Flashcards/Flashcards.jsx";
+import Dashboard from "./components/Dashboard/Dashboard.jsx";
+import CSRDDashboardHome from "./components/Regulations/CSRD/Personalized_dashboard/DashboardHome.jsx";
+import GDPRDashboardHome from "./components/Regulations/GDPR/Personalized_dashboard/DashboardHome.jsx";
+import AIActDashboardHome from "./components/Regulations/AIAct/Personalized_dashboard/DashboardHome.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+// Revert to previous routing without shared layout shell
+// (Legacy dashboard components still render their own sidebars)
+const TOP_REGULATION = { routes: { welcome: "/dashboard/csrd" } };
 
-// Route wrapper that protects routes requiring authentication
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useSelector((state) => state.auth);
 
-  // Show loading spinner while checking authentication
+  // Check if we're still loading OR if user exists
   if (loading) {
     console.log("Auth state is loading...");
     return <div className="loading-spinner">Loading...</div>;
@@ -33,12 +46,12 @@ const PrivateRoute = ({ children }) => {
     user ? "Authenticated" : "Not authenticated"
   );
 
-  // If user is authenticated, render the protected content
+  // If we have a user, render the protected route
   if (user) {
     return children;
   }
 
-  // If not authenticated, redirect to login page
+  // Otherwise redirect to login
   console.log("No user found, redirecting to login");
   return <Navigate to="/login" />;
 };
@@ -55,36 +68,10 @@ const OnboardingRoute = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
-  // Check if we have complete user data (companyId indicates we've fetched from database)
-  const hasCompleteUserData = user.companyId !== undefined;
-
-  console.log("🔍 OnboardingRoute - User state:", {
-    uid: user.uid,
-    email: user.email,
-    hasCompleteUserData,
-    onboardingBasicCompleted: user.onboardingBasicCompleted,
-    onboardingCompleted: user.onboardingCompleted,
-    companyId: user.companyId,
-    fullUser: user,
-  });
-
-  // If we don't have complete user data yet, show loading
-  if (!hasCompleteUserData) {
-    console.log("⏳ OnboardingRoute - Waiting for complete user data...");
-    return <div className="loading-spinner">Loading user data...</div>;
-  }
-
-  // Now check if onboarding is completed (support both flags)
+  // Check if onboarding is completed (support both flags)
   if (!(user.onboardingBasicCompleted || user.onboardingCompleted)) {
-    console.log(
-      "❌ OnboardingRoute - Redirecting to onboarding because onboarding not completed"
-    );
     return <Navigate to="/onboarding" />;
   }
-
-  console.log(
-    "✅ OnboardingRoute - Onboarding completed, allowing access to dashboard"
-  );
 
   return children;
 };
@@ -102,58 +89,13 @@ const OnboardingPage = () => {
   const navigate = useNavigate();
 
   const handleOnboardingComplete = () => {
-    // After successful onboarding, redirect to dashboard
-    navigate("/dashboard");
+    navigate(TOP_REGULATION.routes.welcome);
   };
 
   return <BasicOnboardingForm onComplete={handleOnboardingComplete} />;
 };
 
-// Simple protected dashboard placeholder
-const Dashboard = () => {
-  const { user, loading } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      await dispatch(logoutUserThunk()).unwrap();
-      navigate("/login");
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
-
-  return (
-    <div style={{ padding: "2rem", textAlign: "center", position: "relative" }}>
-      <button
-        onClick={handleLogout}
-        disabled={loading}
-        style={{
-          position: "absolute",
-          top: "1rem",
-          right: "1rem",
-          padding: "0.5rem 1rem",
-          backgroundColor: "#f85a2b",
-          color: "white",
-          border: "none",
-          borderRadius: "4px",
-          cursor: loading ? "not-allowed" : "pointer",
-          fontSize: "14px",
-        }}
-      >
-        {loading ? "Logging out..." : "Logout"}
-      </button>
-
-      <h1>Welcome to Raylow!</h1>
-      <p>Hello, {user?.displayName || user?.fullName || user?.email}!</p>
-      <p>
-        This is a placeholder dashboard. The full app features will be available
-        in the main application.
-      </p>
-    </div>
-  );
-};
+// Dashboard shell now provides sidebar + nested routes
 
 const App = () => {
   return (
@@ -171,6 +113,8 @@ const App = () => {
             </PrivateRoute>
           }
         />
+        {/* Dashboard shell with nested routes */}
+        <Route path="/resume" element={<ResumePage />} />
         <Route
           path="/dashboard"
           element={
@@ -178,7 +122,26 @@ const App = () => {
               <Dashboard />
             </OnboardingRoute>
           }
-        />
+        >
+          <Route index element={<ResumePage />} />
+          {/* CSRD */}
+          <Route path="csrd" element={<WelcomeCSRD />} />
+          <Route path="csrd/flashcards" element={<CSRDFlashcards />} />
+          {/* GDPR */}
+          <Route path="gdpr" element={<WelcomeGDPR />} />
+          <Route path="gdpr/flashcards" element={<GDPRFlashcards />} />
+          {/* AI Act */}
+          <Route path="ai-act" element={<WelcomeAI />} />
+          <Route path="ai-act/flashcards" element={<AIFlashcards />} />
+          {/* Personalized Dashboards per regulation */}
+          <Route path="csrd/dashboard" element={<CSRDDashboardHome />} />
+          <Route path="gdpr/dashboard" element={<GDPRDashboardHome />} />
+          <Route path="ai-act/dashboard" element={<AIActDashboardHome />} />
+          {/* Dashboard local pages */}
+          <Route path="reports" element={<ResumePage />} />
+          <Route path="team" element={<ResumePage />} />
+          <Route path="settings" element={<ResumePage />} />
+        </Route>
       </Routes>
     </Router>
   );
