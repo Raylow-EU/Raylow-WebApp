@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { registerUser, signInWithGoogle } from "../../store/thunks/authThunks";
+import { registerUser } from "../../store/thunks/authThunks";
 import { User, Mail, Lock, AlertCircle } from "lucide-react";
 import "./Signup.css";
-import googleIcon from "../../assets/google.png";
 import logo from "../../assets/logo.png";
 
+// Signup form component that handles new user registration
 const Signup = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { loading, error } = useSelector((state) => state.auth);
+  const dispatch = useDispatch(); // Redux dispatch function
+  const navigate = useNavigate(); // React Router navigation
+  const { error } = useSelector((state) => state.auth); // Get auth error from Redux
+  const [isLoading, setIsLoading] = useState(false); // Local loading state
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -28,6 +29,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       console.log("Attempting signup with:", {
         email: formData.email,
@@ -45,15 +47,8 @@ const Signup = () => {
       if (error.details) {
         console.error("Error details:", error.details);
       }
-    }
-  };
-
-  const handleGoogleSignIn = async () => {
-    try {
-      await dispatch(signInWithGoogle()).unwrap();
-      navigate("/dashboard");
-    } catch (error) {
-      console.error("Google signin failed:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -136,22 +131,8 @@ const Signup = () => {
                 </div>
               </div>
 
-              <button type="submit" className="submit-btn" disabled={loading}>
-                {loading ? "Creating Account..." : "Sign Up"}
-              </button>
-
-              <div className="divider">
-                <span>or continue with</span>
-              </div>
-
-              <button
-                type="button"
-                className="google-btn"
-                onClick={handleGoogleSignIn}
-                disabled={loading}
-              >
-                <img src={googleIcon || "/placeholder.svg"} alt="Google" />
-                Sign up with Google
+              <button type="submit" className="submit-btn" disabled={isLoading}>
+                {isLoading ? "Creating Account..." : "Sign Up"}
               </button>
 
               <p className="auth-link">

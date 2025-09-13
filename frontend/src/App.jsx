@@ -17,10 +17,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
+// Route wrapper that protects routes requiring authentication
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useSelector((state) => state.auth);
 
-  // Check if we're still loading OR if user exists
+  // Show loading spinner while checking authentication
   if (loading) {
     console.log("Auth state is loading...");
     return <div className="loading-spinner">Loading...</div>;
@@ -32,12 +33,12 @@ const PrivateRoute = ({ children }) => {
     user ? "Authenticated" : "Not authenticated"
   );
 
-  // If we have a user, render the protected route
+  // If user is authenticated, render the protected content
   if (user) {
     return children;
   }
 
-  // Otherwise redirect to login
+  // If not authenticated, redirect to login page
   console.log("No user found, redirecting to login");
   return <Navigate to="/login" />;
 };
@@ -54,10 +55,36 @@ const OnboardingRoute = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
-  // Check if onboarding is completed (support both flags)
+  // Check if we have complete user data (companyId indicates we've fetched from database)
+  const hasCompleteUserData = user.companyId !== undefined;
+
+  console.log("🔍 OnboardingRoute - User state:", {
+    uid: user.uid,
+    email: user.email,
+    hasCompleteUserData,
+    onboardingBasicCompleted: user.onboardingBasicCompleted,
+    onboardingCompleted: user.onboardingCompleted,
+    companyId: user.companyId,
+    fullUser: user,
+  });
+
+  // If we don't have complete user data yet, show loading
+  if (!hasCompleteUserData) {
+    console.log("⏳ OnboardingRoute - Waiting for complete user data...");
+    return <div className="loading-spinner">Loading user data...</div>;
+  }
+
+  // Now check if onboarding is completed (support both flags)
   if (!(user.onboardingBasicCompleted || user.onboardingCompleted)) {
+    console.log(
+      "❌ OnboardingRoute - Redirecting to onboarding because onboarding not completed"
+    );
     return <Navigate to="/onboarding" />;
   }
+
+  console.log(
+    "✅ OnboardingRoute - Onboarding completed, allowing access to dashboard"
+  );
 
   return children;
 };

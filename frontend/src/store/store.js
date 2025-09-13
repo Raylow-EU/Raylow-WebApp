@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./slices/authSlice";
 
-// Function to save state to localStorage
+// Saves Redux state to localStorage for persistence across browser sessions
 const saveToLocalStorage = (state) => {
   try {
     const serializedState = JSON.stringify(state);
@@ -11,7 +11,7 @@ const saveToLocalStorage = (state) => {
   }
 };
 
-// Function to load state from localStorage
+// Loads Redux state from localStorage on app startup
 const loadFromLocalStorage = () => {
   try {
     const serializedState = localStorage.getItem("reduxState");
@@ -23,27 +23,30 @@ const loadFromLocalStorage = () => {
   }
 };
 
+// Load persisted state from localStorage
 const persistedState = loadFromLocalStorage();
 
+// Main Redux store configuration with auth reducer and persistence
 export const store = configureStore({
   reducer: {
-    auth: authReducer,
+    auth: authReducer, // Authentication state management
   },
-  preloadedState: persistedState,
+  preloadedState: persistedState, // Restore state from localStorage
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // Ignore these action types
+        // Ignore these action types (user objects may contain non-serializable data)
         ignoredActions: ["auth/setUser"],
       },
     }),
 });
 
-// Listen for store changes and save to localStorage
+// Auto-save state to localStorage whenever store changes
 store.subscribe(() => {
   const state = store.getState();
   saveToLocalStorage(state);
 });
 
-export const getState = store.getState;
-export const dispatch = store.dispatch;
+// Export store utilities for direct access
+export const getState = store.getState; // Get current state
+export const dispatch = store.dispatch; // Dispatch actions

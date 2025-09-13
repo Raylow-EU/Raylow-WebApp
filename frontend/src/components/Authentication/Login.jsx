@@ -1,22 +1,25 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { loginUser, signInWithGoogle } from "../../store/thunks/authThunks";
+import { loginUser } from "../../store/thunks/authThunks";
 import { Mail, Lock, AlertCircle } from "lucide-react";
 import "./Login.css";
-import googleIcon from "../../assets/google.png";
 import logo from "../../assets/logo.png";
 
+// Login form component that handles user authentication
 const Login = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { loading, error } = useSelector((state) => state.auth);
+  const dispatch = useDispatch(); // Redux dispatch function
+  const navigate = useNavigate(); // React Router navigation
+  const { error } = useSelector((state) => state.auth); // Get auth error from Redux
+  const [isLoading, setIsLoading] = useState(false); // Local loading state
 
+  // Form data state for email and password
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  // Handles input field changes and updates form state
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -25,8 +28,10 @@ const Login = () => {
     }));
   };
 
+  // Handles form submission and triggers login process
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       console.log("Attempting login with:", {
         email: formData.email,
@@ -45,15 +50,8 @@ const Login = () => {
       if (error.details) {
         console.error("Error details:", error.details);
       }
-    }
-  };
-
-  const handleGoogleSignIn = async () => {
-    try {
-      await dispatch(signInWithGoogle()).unwrap();
-      navigate("/dashboard");
-    } catch (error) {
-      console.error("Google signin failed:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -125,22 +123,8 @@ const Login = () => {
                 </div>
               </div>
 
-              <button type="submit" className="submit-btn" disabled={loading}>
-                {loading ? "Logging in..." : "Login"}
-              </button>
-
-              <div className="divider">
-                <span>or continue with</span>
-              </div>
-
-              <button
-                type="button"
-                className="google-btn"
-                onClick={handleGoogleSignIn}
-                disabled={loading}
-              >
-                <img src={googleIcon || "/placeholder.svg"} alt="Google" />
-                Sign in with Google
+              <button type="submit" className="submit-btn" disabled={isLoading}>
+                {isLoading ? "Logging in..." : "Login"}
               </button>
 
               <p className="auth-link">

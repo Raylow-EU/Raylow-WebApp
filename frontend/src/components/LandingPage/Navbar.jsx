@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Menu, X, LogOut } from "lucide-react";
 import { logoutUserThunk } from "../../store/thunks/authThunks";
-import { setUser } from "../../store/slices/authSlice";
-import { supabase } from "../../supabase/config";
 import logo from "../../assets/logo.png";
 import "./Navbar.css";
 
@@ -12,6 +10,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
@@ -40,41 +39,11 @@ const Navbar = () => {
 
   // Handle logout
   const handleLogout = async () => {
-    // Prevent multiple simultaneous logouts
-    if (handleLogout.inProgress) {
-      console.log("Logout already in progress, ignoring");
-      return;
-    }
-    handleLogout.inProgress = true;
-
     try {
-      console.log("=== Starting logout process ===");
-      console.log("Current user before logout:", user);
-      
-      // Force clear everything immediately
-      console.log("Step 1: Clearing Redux state immediately");
-      dispatch(setUser(null));
-      
-      console.log("Step 2: Clearing all local storage");
-      localStorage.clear();
-      sessionStorage.clear();
-      
-      console.log("Step 3: Calling Supabase signOut");
-      const result = await supabase.auth.signOut();
-      console.log("Supabase signOut result:", result);
-      
-      if (result.error) {
-        console.error("Supabase logout error:", result.error);
-      } else {
-        console.log("✅ Supabase logout successful");
-      }
-      
-      console.log("=== Logout process complete ===");
-      
+      await dispatch(logoutUserThunk()).unwrap();
+      navigate("/");
     } catch (error) {
-      console.error("Complete logout failed:", error);
-    } finally {
-      handleLogout.inProgress = false;
+      console.error("Logout failed:", error);
     }
   };
 
