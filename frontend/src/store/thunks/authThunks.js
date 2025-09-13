@@ -2,81 +2,58 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   registerWithEmailAndPassword,
   loginWithEmailAndPassword,
-  loginWithGoogle,
   logoutUser,
-  fetchUserData,
 } from "../../supabase/auth";
 
-// Helper to extract serializable user data
-const extractUserData = async (user) => {
-  const baseData = {
-    uid: user.id,
-    email: user.email,
-    displayName: user.user_metadata?.full_name || "",
-  };
-
-  // Fetch additional user data from Supabase
-  try {
-    const userData = await fetchUserData(user.id);
-    return {
-      ...baseData,
-      isAdmin: userData?.isAdmin || false,
-      onboardingCompleted: userData?.onboardingCompleted || false,
-      onboardingBasicCompleted: userData?.onboardingBasicCompleted || false,
-    };
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    return baseData;
-  }
-};
-
+// Redux thunk for user registration - calls Supabase auth and returns user data
 export const registerUser = createAsyncThunk(
   "auth/register",
-  async (
-    { email, password, fullName, companyName, skipOnboarding },
-    { rejectWithValue }
-  ) => {
+  async ({ email, password, fullName }, { rejectWithValue }) => {
     try {
+      console.log("📝 Starting registration process...");
       const userCredential = await registerWithEmailAndPassword(
         email,
         password,
-        fullName,
-        skipOnboarding ? { companyName } : null
+        fullName
       );
-      const userData = await extractUserData(userCredential);
-      return userData;
+      console.log("✅ Registration successful - auth complete");
+
+      // Return basic user info - AuthStateListener will handle full user data
+      return {
+        uid: userCredential.id,
+        email: userCredential.email,
+        displayName: userCredential.user_metadata?.full_name || fullName,
+      };
     } catch (error) {
+      console.error("💥 Registration failed:", error);
       return rejectWithValue(error.message);
     }
   }
 );
 
+// Redux thunk for user login - calls Supabase auth and returns user data
 export const loginUser = createAsyncThunk(
   "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
+      console.log("🔑 Starting login process...");
       const userCredential = await loginWithEmailAndPassword(email, password);
-      const userData = await extractUserData(userCredential);
-      return userData;
+      console.log("✅ Login successful - auth complete");
+
+      // Return basic user info - AuthStateListener will handle full user data
+      return {
+        uid: userCredential.id,
+        email: userCredential.email,
+        displayName: userCredential.user_metadata?.full_name || "",
+      };
     } catch (error) {
+      console.error("💥 Login failed:", error);
       return rejectWithValue(error.message);
     }
   }
 );
 
-export const signInWithGoogle = createAsyncThunk(
-  "auth/googleSignIn",
-  async (_, { rejectWithValue }) => {
-    try {
-      const userCredential = await loginWithGoogle();
-      const userData = await extractUserData(userCredential);
-      return userData;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
+// Redux thunk for user logout - calls Supabase logout and clears user data
 export const logoutUserThunk = createAsyncThunk(
   "auth/logout",
   async (_, { rejectWithValue }) => {
@@ -84,11 +61,13 @@ export const logoutUserThunk = createAsyncThunk(
       await logoutUser();
       return null;
     } catch (error) {
+      console.error("Logout failed:", error);
       return rejectWithValue(error.message);
     }
   }
 );
 
+// Redux thunk for completing basic onboarding - sends data to backend API
 export const completeBasicOnboarding = createAsyncThunk(
   "auth/completeBasicOnboarding",
   async (onboardingData, { rejectWithValue }) => {
