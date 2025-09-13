@@ -1,0 +1,191 @@
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate, NavLink, Link, Outlet, useLocation } from "react-router-dom";
+import { logout } from "../../store/slices/authSlice.js";
+import "./Dashboard.css";
+import {
+  FaHome,
+  FaCubes,
+  FaChartBar,
+  FaUsers,
+  FaCog,
+  FaShoppingCart,
+} from "react-icons/fa";
+import { BiLogOut } from "react-icons/bi";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
+import logo from "../../assets/logo.png";
+import PropTypes from "prop-types";
+
+const regs = [
+  {
+    key: "csrd",
+    label: "CSRD",
+    routes: {
+      welcome: "/dashboard/csrd",
+      assessment: "/dashboard/csrd/flashcards",
+    },
+    subTabs: [
+      { key: "assessment", label: "Assessment", route: "/dashboard/csrd/flashcards" }
+    ]
+  },
+  {
+    key: "gdpr",
+    label: "GDPR",
+    routes: {
+      welcome: "/dashboard/gdpr",
+      assessment: "/dashboard/gdpr/flashcards",
+    },
+    subTabs: [
+      { key: "assessment", label: "Assessment", route: "/dashboard/gdpr/flashcards" }
+    ]
+  },
+  {
+    key: "ai-act",
+    label: "AI Act",
+    routes: {
+      welcome: "/dashboard/ai-act",
+      assessment: "/dashboard/ai-act/flashcards",
+    },
+    subTabs: [
+      { key: "assessment", label: "Assessment", route: "/dashboard/ai-act/flashcards" }
+    ]
+  },
+];
+
+const Dashboard = () => {
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [collapsed, setCollapsed] = useState(false);
+
+  // Collapse sidebar except on the dashboard home
+  useEffect(() => {
+    setCollapsed(location.pathname !== "/dashboard");
+  }, [location.pathname]);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
+  const toggleSidebar = () => {
+    setCollapsed((c) => !c);
+  };
+
+  const activeRegKey = (() => {
+    const m = location.pathname.match(/\/dashboard\/(csrd|gdpr|ai-act)/);
+    return m ? m[1] : undefined;
+  })();
+
+  const StatCard = ({ value, label, change }) => (
+    <div className="stat-card">
+      <FaShoppingCart className="stat-icon" />
+      <div className="stat-content">
+        <h3>{value}</h3>
+        <p>{label}</p>
+        <span className="stat-change">{change}% ↑</span>
+      </div>
+    </div>
+  );
+
+  StatCard.propTypes = {
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    change: PropTypes.string.isRequired,
+  };
+
+  return (
+    <div className="dashboard-layout">
+      <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
+        <div className="logo">
+          <img src={logo} alt="Raylow" />
+          {!collapsed && <span>RAYLOW</span>}
+        </div>
+
+        <button
+          className="toggle-sidebar"
+          onClick={toggleSidebar}
+          title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+        >
+          {collapsed ? "›" : "‹"}
+        </button>
+
+        <nav className="nav-menu">
+          <NavLink
+            end
+            to="/dashboard"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            title="Home"
+          >
+            <FaHome /> {!collapsed && "Home"}
+          </NavLink>
+
+          {regs.map((reg) => (
+            <div key={reg.key}>
+              <NavLink
+                to={reg.routes.welcome}
+                className={({ isActive }) =>
+                  isActive || activeRegKey === reg.key ? "active" : ""
+                }
+                title={reg.label}
+              >
+                <FaCubes /> {!collapsed && reg.label}
+              </NavLink>
+              {activeRegKey === reg.key && reg.subTabs && !collapsed && (
+                <div className="reg-subtabs">
+                  {reg.subTabs.map((subTab) => (
+                    <Link
+                      key={subTab.key}
+                      to={subTab.route}
+                      className="subtab-link"
+                      title={subTab.label}
+                    >
+                      {subTab.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+
+          <NavLink
+            to="/dashboard/reports"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            title="Reports"
+          >
+            <FaChartBar /> {!collapsed && "Reports"}
+          </NavLink>
+          <NavLink
+            to="/dashboard/team"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            title="Team"
+          >
+            <FaUsers /> {!collapsed && "Team"}
+          </NavLink>
+          <NavLink
+            to="/dashboard/settings"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            title="Settings"
+          >
+            <FaCog /> {!collapsed && "Settings"}
+          </NavLink>
+        </nav>
+
+        <div className="sidebar-footer">
+          <a href="#" title="Help & Information" onClick={(e) => e.preventDefault()}>
+            <AiOutlineQuestionCircle /> {!collapsed && "Help & Information"}
+          </a>
+          <a href="#" onClick={handleLogout} title="Log Out">
+            <BiLogOut /> {!collapsed && "Log Out"}
+          </a>
+        </div>
+      </aside>
+
+      <main className={`main-content ${collapsed ? "expanded" : ""}`}>
+        <Outlet />
+      </main>
+    </div>
+  );
+};
+
+export default Dashboard;

@@ -1,0 +1,62 @@
+[
+  {
+    "esrs_reference": "ESRS 2 SBM-1",
+    "topic": "Business model & value chain",
+    "materiality": "mandatory",
+    "question": "Briefly describe your company’s business model and value-chain: • Main products or services • Core value-creating activities (e.g., R&D, manufacturing, sales) • Key geographic regions • Most significant upstream suppliers and downstream customer/end-of-life stages.",
+    "answer_type": "free text",
+    "citation": {
+      "excerpt": "The undertaking shall provide a description of its business model and its value chain, covering the main products and services, activities, markets, and value chain structure.",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R2772#page=64",
+      "why_relevant": "The excerpt defines exactly what information must be disclosed, which the question prompts the officer to provide."
+    }
+  },
+  {
+    "esrs_reference": "ESRS E1-5",
+    "topic": "GHG reduction targets",
+    "materiality": "mandatory",
+    "question": "State your organisation’s greenhouse-gas reduction targets: • Base year and its emissions • Target year(s) and absolute reduction goals (e.g., −50 % vs. 2020) • Scopes covered (1, 2, 3) • Any intensity targets (specify the metric, e.g., t CO₂-eq / tonne product).",
+    "answer_type": "table",
+    "citation": {
+      "excerpt": "The undertaking shall disclose the climate-related targets it has adopted, including the base year, target year, and whether the target is absolute or intensity-based, and the scopes covered.",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R2772#page=126",
+      "why_relevant": "Lists all data points the undertaking must report; the question gathers each of them."
+    }
+  },
+  {
+    "esrs_reference": "ESRS E1-AR 16",
+    "topic": "GHG emissions by scope",
+    "materiality": "mandatory",
+    "question": "Report your GHG emissions for the reporting year: • Scope 1 direct emissions (t CO₂-eq) • Scope 2 market-based emissions (t CO₂-eq) • Scope 2 location-based emissions (t CO₂-eq) • Scope 3 total emissions (t CO₂-eq) plus the top contributing categories.",
+    "answer_type": "table",
+    "citation": {
+      "excerpt": "Undertakings shall disclose greenhouse gas emissions disaggregated by scope 1, scope 2 (market-based and location-based) and scope 3, identifying the main contributing categories.",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R2772#page=134",
+      "why_relevant": "Specifies the exact breakdown required; the question mirrors that structure."
+    }
+  },
+  {
+    "esrs_reference": "ESRS S1-6",
+    "topic": "Gender pay gap",
+    "materiality": "mandatory",
+    "question": "Provide the unadjusted gender pay gap: • % difference between average hourly remuneration of women and men for the reporting period.",
+    "answer_type": "numeric",
+    "citation": {
+      "excerpt": "The undertaking shall disclose the unadjusted gender pay gap expressed as the percentage difference between the average hourly remuneration of women and men.",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R2772#page=176",
+      "why_relevant": "Defines the metric to be disclosed, which the question directly requests."
+    }
+  },
+  {
+    "esrs_reference": "ESRS G1-3",
+    "topic": "Anti-corruption training coverage",
+    "materiality": "mandatory",
+    "question": "Indicate anti-corruption and anti-bribery training coverage: • % of governing-body members trained • % of employees trained • Brief description of training content and frequency.",
+    "answer_type": "table",
+    "citation": {
+      "excerpt": "The undertaking shall disclose the percentage of persons within the undertaking who have received anti-corruption and anti-bribery training, including members of the administrative, management or supervisory bodies and employees.",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R2772#page=214",
+      "why_relevant": "Specifies that percentages of trained individuals must be disclosed; the question captures those figures."
+    }
+  }
+]
