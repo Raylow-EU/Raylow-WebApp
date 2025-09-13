@@ -23,8 +23,10 @@ const regs = [
     routes: {
       welcome: "/dashboard/csrd",
       assessment: "/dashboard/csrd/flashcards",
+      dashboard: "/dashboard/csrd/dashboard",
     },
     subTabs: [
+      { key: "dashboard", label: "Dashboard", route: "/dashboard/csrd/dashboard" },
       { key: "assessment", label: "Assessment", route: "/dashboard/csrd/flashcards" }
     ]
   },
@@ -34,8 +36,10 @@ const regs = [
     routes: {
       welcome: "/dashboard/gdpr",
       assessment: "/dashboard/gdpr/flashcards",
+      dashboard: "/dashboard/gdpr/dashboard",
     },
     subTabs: [
+      { key: "dashboard", label: "Dashboard", route: "/dashboard/gdpr/dashboard" },
       { key: "assessment", label: "Assessment", route: "/dashboard/gdpr/flashcards" }
     ]
   },
@@ -45,8 +49,10 @@ const regs = [
     routes: {
       welcome: "/dashboard/ai-act",
       assessment: "/dashboard/ai-act/flashcards",
+      dashboard: "/dashboard/ai-act/dashboard",
     },
     subTabs: [
+      { key: "dashboard", label: "Dashboard", route: "/dashboard/ai-act/dashboard" },
       { key: "assessment", label: "Assessment", route: "/dashboard/ai-act/flashcards" }
     ]
   },

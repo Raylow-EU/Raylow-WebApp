@@ -21,6 +21,9 @@ import GDPRFlashcards from "./components/Regulations/GDPR/Flashcards/Flashcards.
 import AIFlashcards from "./components/Regulations/AIAct/Flashcards/Flashcards.jsx";
 import CSRDFlashcards from "./components/Regulations/CSRD/Flashcards/Flashcards.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
+import CSRDDashboardHome from "./components/Regulations/CSRD/Personalized_dashboard/DashboardHome.jsx";
+import GDPRDashboardHome from "./components/Regulations/GDPR/Personalized_dashboard/DashboardHome.jsx";
+import AIActDashboardHome from "./components/Regulations/AIAct/Personalized_dashboard/DashboardHome.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -28,11 +31,10 @@ import "./App.css";
 // (Legacy dashboard components still render their own sidebars)
 const TOP_REGULATION = { routes: { welcome: "/dashboard/csrd" } };
 
-// Route wrapper that protects routes requiring authentication
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useSelector((state) => state.auth);
 
-  // Show loading spinner while checking authentication
+  // Check if we're still loading OR if user exists
   if (loading) {
     console.log("Auth state is loading...");
     return <div className="loading-spinner">Loading...</div>;
@@ -44,12 +46,12 @@ const PrivateRoute = ({ children }) => {
     user ? "Authenticated" : "Not authenticated"
   );
 
-  // If user is authenticated, render the protected content
+  // If we have a user, render the protected route
   if (user) {
     return children;
   }
 
-  // If not authenticated, redirect to login page
+  // Otherwise redirect to login
   console.log("No user found, redirecting to login");
   return <Navigate to="/login" />;
 };
@@ -66,36 +68,10 @@ const OnboardingRoute = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
-  // Check if we have complete user data (companyId indicates we've fetched from database)
-  const hasCompleteUserData = user.companyId !== undefined;
-
-  console.log("🔍 OnboardingRoute - User state:", {
-    uid: user.uid,
-    email: user.email,
-    hasCompleteUserData,
-    onboardingBasicCompleted: user.onboardingBasicCompleted,
-    onboardingCompleted: user.onboardingCompleted,
-    companyId: user.companyId,
-    fullUser: user,
-  });
-
-  // If we don't have complete user data yet, show loading
-  if (!hasCompleteUserData) {
-    console.log("⏳ OnboardingRoute - Waiting for complete user data...");
-    return <div className="loading-spinner">Loading user data...</div>;
-  }
-
-  // Now check if onboarding is completed (support both flags)
+  // Check if onboarding is completed (support both flags)
   if (!(user.onboardingBasicCompleted || user.onboardingCompleted)) {
-    console.log(
-      "❌ OnboardingRoute - Redirecting to onboarding because onboarding not completed"
-    );
     return <Navigate to="/onboarding" />;
   }
-
-  console.log(
-    "✅ OnboardingRoute - Onboarding completed, allowing access to dashboard"
-  );
 
   return children;
 };
@@ -157,6 +133,10 @@ const App = () => {
           {/* AI Act */}
           <Route path="ai-act" element={<WelcomeAI />} />
           <Route path="ai-act/flashcards" element={<AIFlashcards />} />
+          {/* Personalized Dashboards per regulation */}
+          <Route path="csrd/dashboard" element={<CSRDDashboardHome />} />
+          <Route path="gdpr/dashboard" element={<GDPRDashboardHome />} />
+          <Route path="ai-act/dashboard" element={<AIActDashboardHome />} />
           {/* Dashboard local pages */}
           <Route path="reports" element={<ResumePage />} />
           <Route path="team" element={<ResumePage />} />
