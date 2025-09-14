@@ -14,6 +14,7 @@ import Signup from "./components/Authentication/Signup";
 import BasicOnboardingForm from "./features/onboarding/BasicOnboardingForm";
 import { logoutUserThunk } from "./store/thunks/authThunks";
 import ResumePage from "./components/Resume_Page/ResumePage.jsx";
+import RegulationSelector from "./components/Dashboard/RegulationSelector.jsx";
 import WelcomeGDPR from "./components/Regulations/GDPR/Welcome/Welcome.jsx";
 import WelcomeAI from "./components/Regulations/AIAct/Welcome/Welcome.jsx";
 import WelcomeCSRD from "./components/Regulations/CSRD/Welcome/Welcome.jsx";
@@ -59,14 +60,24 @@ const PrivateRoute = ({ children }) => {
 // Component to handle onboarding check
 const OnboardingRoute = ({ children }) => {
   const { user, loading } = useSelector((state) => state.auth);
-  const [hasCheckedOnboarding, setHasCheckedOnboarding] = useState(false);
+  const [onboardingStatus, setOnboardingStatus] = useState(() => {
+    // Initialize from localStorage if available
+    const saved = localStorage.getItem('onboarding_completed');
+    return saved === 'true' ? 'completed' : null;
+  });
 
+  // Remember onboarding status once determined to prevent re-evaluation during navigation
   useEffect(() => {
-    // Only set the flag after we've confirmed onboarding status
-    if (user && !loading) {
-      setHasCheckedOnboarding(true);
+    if (user && (user.onboardingBasicCompleted === true || user.onboardingCompleted === true)) {
+      setOnboardingStatus('completed');
+      localStorage.setItem('onboarding_completed', 'true');
+    } else if (user && user.onboardingBasicCompleted === false && !user.onboardingCompleted) {
+      // Only set to needed if we don't already have it marked as completed
+      if (onboardingStatus !== 'completed') {
+        setOnboardingStatus('needed');
+      }
     }
-  }, [user, loading]);
+  }, [user, onboardingStatus]);
 
   if (loading) {
     return <div className="loading-spinner">Loading...</div>;
@@ -76,20 +87,23 @@ const OnboardingRoute = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
-  // Prevent redirect if we're still in the process of loading user data
-  // This prevents the tab switch issue where user data temporarily becomes incomplete
-  const isOnboardingComplete = user.onboardingBasicCompleted || user.onboardingCompleted;
+  // If we've already determined the user completed onboarding, always allow access
+  if (onboardingStatus === 'completed') {
+    return children;
+  }
 
-  // Only redirect to onboarding if:
-  // 1. We have confirmed the user data is fully loaded
-  // 2. AND onboarding is genuinely not complete
-  if (hasCheckedOnboarding && !isOnboardingComplete) {
-    console.log("OnboardingRoute: Redirecting to onboarding", { user, hasCheckedOnboarding, isOnboardingComplete });
+  // If we've determined the user needs onboarding, redirect
+  if (onboardingStatus === 'needed') {
     return <Navigate to="/onboarding" />;
   }
 
-  // If onboarding check hasn't completed yet, render children to prevent flashing
-  return children;
+  // Still determining onboarding status - show loading to prevent flash
+  return (
+    <div className="onboarding-loading">
+      <div className="loading-spinner"></div>
+      <p>Preparing your workspace...</p>
+    </div>
+  );
 };
 
 PrivateRoute.propTypes = {
@@ -148,7 +162,7 @@ const App = () => {
             </OnboardingRoute>
           }
         >
-          <Route index element={<ResumePage />} />
+          <Route index element={<RegulationSelector />} />
           {/* CSRD */}
           <Route path="csrd" element={<WelcomeCSRD />} />
           <Route path="csrd/flashcards" element={<CSRDFlashcards />} />

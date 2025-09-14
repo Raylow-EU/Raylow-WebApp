@@ -26,6 +26,8 @@ const AuthStateListener = ({ children }) => {
           uid: user.id,
           email: user.email,
           displayName: user.user_metadata?.full_name || "",
+          // Initialize onboarding flag to false initially to prevent race condition
+          onboardingBasicCompleted: false,
         };
 
         console.log("Base user data:", baseUserData);

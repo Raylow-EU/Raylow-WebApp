@@ -5,9 +5,15 @@
       "Bash(pkill:*)",
       "Bash(node:*)",
       "Bash(mv:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(claude mcp add:*)",
+      "Bash(claude mcp:*)"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "enabledMcpjsonServers": [
+    "framer"
+  ],
+  "enableAllProjectMcpServers": true
 }

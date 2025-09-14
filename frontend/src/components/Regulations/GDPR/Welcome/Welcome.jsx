@@ -1,87 +1,13 @@
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { BsCalendar, BsShield } from "react-icons/bs";
-import { FaUserShield, FaFileContract, FaDatabase, FaUsers } from "react-icons/fa";
-import { HiArrowNarrowRight, HiCheckCircle } from "react-icons/hi";
-import { Doughnut } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import { BsCalendar } from "react-icons/bs";
 import "./Welcome.css";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
-
 const WelcomeGDPR = () => {
-  const { user } = useSelector((state) => state.auth);
-  const [dashboardData, setDashboardData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
   const today = new Date();
   const formattedDate = today.toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
     year: "numeric",
   });
-
-  useEffect(() => {
-    // Demo data for GDPR
-    const demo = {
-      stats: {
-        dataSubjects: 15420,
-        complianceScore: 88,
-        requestsHandled: 94,
-      },
-      chartData: {
-        dataByCategory: { personal: 45, sensitive: 30, marketing: 25 },
-        breachIncidents: 2,
-      },
-    };
-    setDashboardData(demo);
-    setLoading(false);
-  }, []);
-
-  const getFirstName = () => {
-    const displayName = user?.displayName || user?.fullName;
-    if (!displayName) return "User";
-    return displayName.split(" ")[0];
-  };
-
-  const donutData = {
-    labels: ["Personal Data", "Sensitive Data", "Marketing Data"],
-    datasets: [
-      {
-        data: dashboardData
-          ? [
-              dashboardData.chartData.dataByCategory.personal,
-              dashboardData.chartData.dataByCategory.sensitive,
-              dashboardData.chartData.dataByCategory.marketing,
-            ]
-          : [45, 30, 25],
-        backgroundColor: ["#0ea5e9", "#38bdf8", "#7dd3fc"],
-        borderWidth: 0,
-        cutout: "70%",
-      },
-    ],
-  };
-
-  const donutOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: { legend: { display: false }, tooltip: { enabled: true } },
-  };
-
-  if (loading) {
-    return (
-      <div className="gdpr-loading">
-        <div className="loading-spinner"></div>
-        <p>Loading GDPR overview...</p>
-      </div>
-    );
-  }
 
   return (
     <div className="gdpr-welcome-container">
@@ -146,115 +72,6 @@ const WelcomeGDPR = () => {
         </div>
       </div>
 
-      {/* Dashboard Integration */}
-      <div className="gdpr-dashboard-section">
-        <div className="dashboard-header">
-          <h2 className="section-title">Your GDPR Dashboard</h2>
-          <p className="section-subtitle">Monitor your data protection compliance and privacy metrics</p>
-        </div>
-
-        <div className="dashboard-stats-grid">
-          <div className="stat-card data-subjects-card">
-            <div className="stat-icon-container">
-              <FaUsers className="stat-icon" />
-            </div>
-            <div className="stat-info">
-              <h3>{dashboardData?.stats.dataSubjects.toLocaleString() || "15,420"}</h3>
-              <p>Data Subjects</p>
-            </div>
-            <div className="stat-change positive">
-              <span>3.2% ↑</span>
-            </div>
-          </div>
-
-          <div className="stat-card compliance-card">
-            <div className="stat-icon-container">
-              <BsShield className="stat-icon" />
-            </div>
-            <div className="stat-info">
-              <h3>{dashboardData?.stats.complianceScore || 88}%</h3>
-              <p>GDPR Compliance</p>
-            </div>
-            <div className="stat-change positive">
-              <span>5.1% ↑</span>
-            </div>
-          </div>
-
-          <div className="stat-card requests-card">
-            <div className="stat-icon-container">
-              <FaFileContract className="stat-icon" />
-            </div>
-            <div className="stat-info">
-              <h3>{dashboardData?.stats.requestsHandled || 94}%</h3>
-              <p>Requests Handled On-Time</p>
-            </div>
-            <div className="stat-change positive">
-              <span>On track</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="dashboard-charts-grid">
-          <div className="chart-card data-by-category">
-            <div className="chart-header">
-              <h3>Data Processing by Category</h3>
-              <span className="chart-period">Current Quarter</span>
-            </div>
-            <div className="chart-container">
-              <div className="donut-chart-wrapper">
-                <Doughnut data={donutData} options={donutOptions} />
-                <div className="donut-center">{dashboardData?.chartData.dataByCategory.personal || 45}%</div>
-              </div>
-              <div className="scope-legend">
-                <div className="scope-items">
-                  <div className="scope-item">
-                    <span className="scope-dot personal-data"></span>
-                    <span>Personal Data</span>
-                  </div>
-                  <div className="scope-item">
-                    <span className="scope-dot sensitive-data"></span>
-                    <span>Sensitive Data</span>
-                  </div>
-                  <div className="scope-item">
-                    <span className="scope-dot marketing-data"></span>
-                    <span>Marketing Data</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="chart-card quick-actions">
-            <h3>Quick Actions</h3>
-            <div className="action-items">
-              <Link to="/dashboard/gdpr/flashcards" className="action-item">
-                <div className="action-icon">🔐</div>
-                <div className="action-content">
-                  <h4>Start Assessment</h4>
-                  <p>Begin your GDPR compliance assessment</p>
-                </div>
-                <HiArrowNarrowRight className="action-arrow" />
-              </Link>
-              <div className="action-item">
-                <div className="action-icon">🗺️</div>
-                <div className="action-content">
-                  <h4>Data Mapping</h4>
-                  <p>Map your data flows and processing activities</p>
-                </div>
-                <HiArrowNarrowRight className="action-arrow" />
-              </div>
-              <div className="action-item">
-                <div className="action-icon">📋</div>
-                <div className="action-content">
-                  <h4>Rights Requests</h4>
-                  <p>Manage data subject rights requests</p>
-                </div>
-                <HiArrowNarrowRight className="action-arrow" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
