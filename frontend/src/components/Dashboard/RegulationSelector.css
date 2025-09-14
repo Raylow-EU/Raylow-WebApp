@@ -1,0 +1,366 @@
+/**
+ * RegulationSelector Styles - Adapted for Raylow
+ */
+
+.regulation-selector {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: calc(100vh - 100px);
+}
+
+.selector-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.selector-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.selector-header p {
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.regulations-section {
+  margin-bottom: 3rem;
+}
+
+.regulations-section h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #e94c2b;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.regulations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.regulation-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 2px solid rgba(233, 76, 43, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.regulation-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #e94c2b, #ff8f6b, #e94c2b);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.regulation-card:hover::before {
+  opacity: 1;
+}
+
+.regulation-card:hover {
+  transform: translateY(-4px);
+  border-color: #e94c2b;
+  box-shadow:
+    0 20px 40px rgba(233, 76, 43, 0.15),
+    0 8px 16px rgba(233, 76, 43, 0.1);
+}
+
+.regulation-card.active {
+  border-color: #e94c2b;
+  background: linear-gradient(135deg, rgba(233, 76, 43, 0.05) 0%, rgba(255, 143, 107, 0.03) 100%);
+}
+
+.regulation-card.active::before {
+  opacity: 1;
+}
+
+.regulation-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.regulation-icon {
+  font-size: 1.5rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  flex-shrink: 0;
+  color: white;
+}
+
+.regulation-info {
+  flex: 1;
+}
+
+.regulation-info h4 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.3;
+}
+
+.regulation-complexity {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.regulation-badges {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.status-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.status-not-started {
+  background: rgba(107, 114, 128, 0.1);
+  color: #6b7280;
+}
+
+.status-badge.status-in-progress {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.status-badge.status-completed {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+
+.regulation-description {
+  margin: 0 0 1.5rem 0;
+  color: #4b5563;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  flex-grow: 1;
+}
+
+.regulation-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.action-btn.primary {
+  color: white;
+}
+
+.action-btn.primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.action-btn.primary:disabled {
+  opacity: 0.6;
+  transform: none;
+  cursor: not-allowed;
+}
+
+.action-btn.secondary {
+  border: 2px solid transparent;
+}
+
+.action-btn.secondary:hover {
+  filter: brightness(0.9);
+}
+
+/* Category Filter */
+.category-filter {
+  margin-bottom: 2rem;
+}
+
+.category-filter h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.category-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.category-tabs button {
+  padding: 0.5rem 1.25rem;
+  border: 2px solid rgba(233, 76, 43, 0.2);
+  background: rgba(233, 76, 43, 0.05);
+  color: #e94c2b;
+  border-radius: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.category-tabs button:hover {
+  background: rgba(233, 76, 43, 0.1);
+  border-color: #e94c2b;
+}
+
+.category-tabs button.active {
+  background: linear-gradient(135deg, #e94c2b 0%, #ff8f6b 100%);
+  color: white;
+  border-color: #e94c2b;
+}
+
+/* No Regulations */
+.no-regulations {
+  text-align: center;
+  padding: 3rem;
+  color: #6b7280;
+  font-style: italic;
+  background: rgba(16, 185, 129, 0.05);
+  border-radius: 16px;
+  border: 2px solid rgba(16, 185, 129, 0.1);
+}
+
+.no-regulations p {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #10b981;
+}
+
+/* First Time Experience */
+.first-time-experience {
+  text-align: center;
+  padding: 3rem;
+  margin-bottom: 2rem;
+}
+
+.welcome-message {
+  background: linear-gradient(135deg, rgba(233, 76, 43, 0.05) 0%, rgba(255, 143, 107, 0.03) 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  border: 2px solid rgba(233, 76, 43, 0.1);
+}
+
+.welcome-message h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+}
+
+.welcome-message p {
+  font-size: 1rem;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .regulation-selector {
+    padding: 1rem;
+  }
+
+  .regulations-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .regulation-card {
+    padding: 1.5rem;
+    min-height: auto;
+  }
+
+  .regulation-actions {
+    flex-direction: column;
+  }
+
+  .category-tabs {
+    justify-content: center;
+  }
+
+  .selector-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .selector-header p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .regulation-card {
+    padding: 1rem;
+  }
+
+  .regulation-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .regulation-badges {
+    position: static;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .welcome-message {
+    padding: 1.5rem;
+  }
+}

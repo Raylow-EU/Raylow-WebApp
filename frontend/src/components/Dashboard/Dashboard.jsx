@@ -10,6 +10,9 @@ import {
   FaUsers,
   FaCog,
   FaShoppingCart,
+  FaLeaf,
+  FaShieldAlt,
+  FaBrain,
 } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
@@ -20,6 +23,7 @@ const regs = [
   {
     key: "csrd",
     label: "CSRD",
+    icon: FaLeaf,
     routes: {
       welcome: "/dashboard/csrd",
       assessment: "/dashboard/csrd/flashcards",
@@ -33,6 +37,7 @@ const regs = [
   {
     key: "gdpr",
     label: "GDPR",
+    icon: FaShieldAlt,
     routes: {
       welcome: "/dashboard/gdpr",
       assessment: "/dashboard/gdpr/flashcards",
@@ -46,6 +51,7 @@ const regs = [
   {
     key: "ai-act",
     label: "AI Act",
+    icon: FaBrain,
     routes: {
       welcome: "/dashboard/ai-act",
       assessment: "/dashboard/ai-act/flashcards",
@@ -123,7 +129,7 @@ const Dashboard = () => {
             className={({ isActive }) => (isActive ? "active" : "")}
             title="Home"
           >
-            <FaHome /> {!collapsed && "Home"}
+            <FaHome /> {!collapsed && "Regulations"}
           </NavLink>
 
           {regs.map((reg) => (
@@ -135,7 +141,7 @@ const Dashboard = () => {
                 }
                 title={reg.label}
               >
-                <FaCubes /> {!collapsed && reg.label}
+                <reg.icon /> {!collapsed && reg.label}
               </NavLink>
               {activeRegKey === reg.key && reg.subTabs && !collapsed && (
                 <div className="reg-subtabs">
