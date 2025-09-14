@@ -24,12 +24,12 @@ import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import CSRDDashboardHome from "./components/Regulations/CSRD/Personalized_dashboard/DashboardHome.jsx";
 import GDPRDashboardHome from "./components/Regulations/GDPR/Personalized_dashboard/DashboardHome.jsx";
 import AIActDashboardHome from "./components/Regulations/AIAct/Personalized_dashboard/DashboardHome.jsx";
+import RegulatoryAssessment from "./components/Assessment/RegulatoryAssessment.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 // Revert to previous routing without shared layout shell
 // (Legacy dashboard components still render their own sidebars)
-const TOP_REGULATION = { routes: { welcome: "/dashboard/csrd" } };
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useSelector((state) => state.auth);
@@ -59,6 +59,14 @@ const PrivateRoute = ({ children }) => {
 // Component to handle onboarding check
 const OnboardingRoute = ({ children }) => {
   const { user, loading } = useSelector((state) => state.auth);
+  const [hasCheckedOnboarding, setHasCheckedOnboarding] = useState(false);
+
+  useEffect(() => {
+    // Only set the flag after we've confirmed onboarding status
+    if (user && !loading) {
+      setHasCheckedOnboarding(true);
+    }
+  }, [user, loading]);
 
   if (loading) {
     return <div className="loading-spinner">Loading...</div>;
@@ -68,11 +76,19 @@ const OnboardingRoute = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
-  // Check if onboarding is completed (support both flags)
-  if (!(user.onboardingBasicCompleted || user.onboardingCompleted)) {
+  // Prevent redirect if we're still in the process of loading user data
+  // This prevents the tab switch issue where user data temporarily becomes incomplete
+  const isOnboardingComplete = user.onboardingBasicCompleted || user.onboardingCompleted;
+
+  // Only redirect to onboarding if:
+  // 1. We have confirmed the user data is fully loaded
+  // 2. AND onboarding is genuinely not complete
+  if (hasCheckedOnboarding && !isOnboardingComplete) {
+    console.log("OnboardingRoute: Redirecting to onboarding", { user, hasCheckedOnboarding, isOnboardingComplete });
     return <Navigate to="/onboarding" />;
   }
 
+  // If onboarding check hasn't completed yet, render children to prevent flashing
   return children;
 };
 
@@ -89,7 +105,7 @@ const OnboardingPage = () => {
   const navigate = useNavigate();
 
   const handleOnboardingComplete = () => {
-    navigate(TOP_REGULATION.routes.welcome);
+    navigate("/dashboard");
   };
 
   return <BasicOnboardingForm onComplete={handleOnboardingComplete} />;
@@ -112,6 +128,15 @@ const App = () => {
               <OnboardingPage />
             </PrivateRoute>
           }
+        />
+        {/* Assessment route */}
+        <Route 
+          path="/assessment" 
+          element={
+            <PrivateRoute>
+              <RegulatoryAssessment />
+            </PrivateRoute>
+          } 
         />
         {/* Dashboard shell with nested routes */}
         <Route path="/resume" element={<ResumePage />} />

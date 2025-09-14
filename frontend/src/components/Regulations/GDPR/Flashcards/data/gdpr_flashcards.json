@@ -1,0 +1,74 @@
+[
+  {
+    "esrs_reference": "GDPR Art. 6",
+    "topic": "Lawful bases",
+    "materiality": "mandatory",
+    "question": "Which lawful basis do you rely on for core processing activities? • Consent • Contract • Legal obligation • Legitimate interests • Vital interests • Public task",
+    "answer_type": "multiple choice",
+    "citation": {
+      "excerpt": "Processing shall be lawful only if and to the extent that at least one of the following applies: (a) the data subject has given consent...",
+      "url": "https://gdpr-info.eu/art-6-gdpr/",
+      "why_relevant": "Establishes the legal foundation for all personal data processing activities."
+    }
+  },
+  {
+    "esrs_reference": "GDPR Chapter 3",
+    "topic": "Data subject rights",
+    "materiality": "mandatory", 
+    "question": "Describe your process and SLAs for handling data subject requests (DSARs): • Intake channel • Verification process • Fulfillment timeline • Documented exceptions and reasons",
+    "answer_type": "table",
+    "citation": {
+      "excerpt": "The controller shall take appropriate measures to provide any information and communication relating to processing to the data subject...",
+      "url": "https://gdpr-info.eu/chapter-3/",
+      "why_relevant": "Defines the data subject rights and controller obligations for responding to requests."
+    }
+  },
+  {
+    "esrs_reference": "GDPR Art. 35",
+    "topic": "Data Protection Impact Assessment (DPIA)",
+    "materiality": "conditional",
+    "question": "List activities subject to DPIA and summarize your risk mitigation measures: • High-risk processing activities identified • Risk assessment methodology • Mitigation measures implemented • Consultation with DPO and supervisory authority if applicable",
+    "answer_type": "free text", 
+    "citation": {
+      "excerpt": "Where a type of processing is likely to result in a high risk to the rights and freedoms of natural persons, the controller shall carry out an assessment...",
+      "url": "https://gdpr-info.eu/art-35-gdpr/",
+      "why_relevant": "Requires impact assessments for high-risk processing to identify and mitigate privacy risks."
+    }
+  },
+  {
+    "esrs_reference": "GDPR Art. 33",
+    "topic": "Breach notification",
+    "materiality": "mandatory",
+    "question": "When did you last test your incident response plan and breach notification workflow? • Date of last test • Testing methodology • Identified gaps and remediation • Staff training records",
+    "answer_type": "date",
+    "citation": {
+      "excerpt": "In the case of a personal data breach, the controller shall without undue delay notify the supervisory authority...",
+      "url": "https://gdpr-info.eu/art-33-gdpr/",
+      "why_relevant": "Establishes strict timelines for breach notification and requires documented incident response procedures."
+    }
+  },
+  {
+    "esrs_reference": "GDPR Art. 30", 
+    "topic": "Records of processing",
+    "materiality": "mandatory",
+    "question": "Maintain records of processing activities including: • Purposes of processing • Categories of data subjects and personal data • Recipients of personal data • Retention periods • Security measures",
+    "answer_type": "table",
+    "citation": {
+      "excerpt": "Each controller shall maintain a record of processing activities under its responsibility...",
+      "url": "https://gdpr-info.eu/art-30-gdpr/",
+      "why_relevant": "Requires comprehensive documentation of all processing activities for accountability and compliance demonstration."
+    }
+  },
+  {
+    "esrs_reference": "GDPR Art. 37",
+    "topic": "Data Protection Officer (DPO)",
+    "materiality": "conditional", 
+    "question": "If required to appoint a DPO, describe: • DPO qualification and independence • Contact details published • Tasks and responsibilities assigned • Resources and access provided",
+    "answer_type": "free text",
+    "citation": {
+      "excerpt": "The controller and the processor shall designate a data protection officer in cases where: core activities consist of processing operations which require regular and systematic monitoring...",
+      "url": "https://gdpr-info.eu/art-37-gdpr/", 
+      "why_relevant": "Defines when DPO appointment is mandatory and their required qualifications and role."
+    }
+  }
+]

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser, setLoading } from "../../store/slices/authSlice";
 import {
   onAuthStateChange,
@@ -10,6 +10,7 @@ import {
 // Component that listens for authentication state changes and updates Redux store
 const AuthStateListener = ({ children }) => {
   const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     console.log("Setting up auth state listener");
@@ -28,6 +29,13 @@ const AuthStateListener = ({ children }) => {
         };
 
         console.log("Base user data:", baseUserData);
+
+        // If we already have a complete user with onboarding data, preserve it during tab switches
+        if (currentUser?.onboardingBasicCompleted && currentUser.uid === user.id) {
+          console.log("Preserving existing complete user data during tab switch");
+          dispatch(setLoading(false));
+          return;
+        }
 
         // Set basic user data immediately so login works
         console.log("Setting basic user data in Redux:", baseUserData);

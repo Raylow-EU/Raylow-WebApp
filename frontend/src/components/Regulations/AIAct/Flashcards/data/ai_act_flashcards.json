@@ -1,0 +1,74 @@
+[
+  {
+    "esrs_reference": "AI Act Art. 6-7",
+    "topic": "Risk classification",
+    "materiality": "mandatory",
+    "question": "How do you classify your AI systems by risk category? • Minimal risk systems and use cases • Limited risk systems requiring transparency • High-risk systems and compliance obligations • Any prohibited AI practices identified",
+    "answer_type": "multiple choice",
+    "citation": {
+      "excerpt": "AI systems shall be classified according to the level of risk they pose to health, safety and fundamental rights...",
+      "url": "https://artificialintelligenceact.eu/article/6/",
+      "why_relevant": "Establishes the fundamental risk-based approach that determines all subsequent compliance obligations."
+    }
+  },
+  {
+    "esrs_reference": "AI Act Art. 10",
+    "topic": "Data governance for high-risk AI",
+    "materiality": "conditional",
+    "question": "Describe your data governance measures for high-risk AI systems: • Training dataset quality and representativeness • Bias detection and mitigation procedures • Data provenance and lineage tracking • Ongoing monitoring of data quality",
+    "answer_type": "table",
+    "citation": {
+      "excerpt": "High-risk AI systems shall be developed and operated in such a way as to ensure appropriate data governance and management practices...",
+      "url": "https://artificialintelligenceact.eu/article/10/",
+      "why_relevant": "Defines specific data quality requirements that are essential for high-risk AI system compliance."
+    }
+  },
+  {
+    "esrs_reference": "AI Act Art. 13",
+    "topic": "Transparency obligations",
+    "materiality": "mandatory",
+    "question": "What transparency measures have you implemented for AI systems? • User instructions and documentation • Clear disclosure of AI system capabilities and limitations • Labeling requirements for AI-generated content • Information provided to deployers",
+    "answer_type": "free text",
+    "citation": {
+      "excerpt": "AI systems intended to interact with natural persons shall be designed and developed in such a way that natural persons are informed that they are interacting with an AI system...",
+      "url": "https://artificialintelligenceact.eu/article/52/",
+      "why_relevant": "Requires clear disclosure and transparency measures to ensure informed user interaction with AI systems."
+    }
+  },
+  {
+    "esrs_reference": "AI Act Art. 14",
+    "topic": "Human oversight",
+    "materiality": "conditional",
+    "question": "Describe your human oversight procedures for high-risk AI systems: • Human oversight measures designed into the system • Procedures for human intervention and override • Competency requirements for oversight personnel • Documentation of oversight decisions",
+    "answer_type": "free text",
+    "citation": {
+      "excerpt": "High-risk AI systems shall be designed and developed in such a way that they can be effectively overseen by natural persons during the period in which the AI system is in use...",
+      "url": "https://artificialintelligenceact.eu/article/14/",
+      "why_relevant": "Mandates meaningful human control over high-risk AI systems to prevent fully automated decision-making."
+    }
+  },
+  {
+    "esrs_reference": "AI Act Art. 9",
+    "topic": "Risk management system",
+    "materiality": "conditional",
+    "question": "Document your risk management system for high-risk AI: • Risk identification and assessment methodology • Risk mitigation measures implemented • Testing and validation procedures • Continuous monitoring and updating processes",
+    "answer_type": "table",
+    "citation": {
+      "excerpt": "A risk management system shall be established, implemented, documented and maintained in relation to high-risk AI systems...",
+      "url": "https://artificialintelligenceact.eu/article/9/",
+      "why_relevant": "Requires comprehensive risk management throughout the AI system lifecycle for high-risk applications."
+    }
+  },
+  {
+    "esrs_reference": "AI Act Art. 11",
+    "topic": "Technical documentation",
+    "materiality": "conditional",
+    "question": "Maintain technical documentation including: • System design and architecture • Training methodology and datasets • Performance metrics and validation results • Intended use and known limitations • Conformity assessment procedures",
+    "answer_type": "free text",
+    "citation": {
+      "excerpt": "Technical documentation shall be drawn up before the high-risk AI system is placed on the market or put into service and shall be kept up-to-date...",
+      "url": "https://artificialintelligenceact.eu/article/11/",
+      "why_relevant": "Requires comprehensive technical documentation to demonstrate compliance and enable effective oversight."
+    }
+  }
+]

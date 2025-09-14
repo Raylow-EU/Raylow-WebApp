@@ -1,7 +1,0 @@
-[
-  {"ref":"AIA-1","topic":"Risk classification","type":"multiple choice","question":"How do you classify your AI systems? • Minimal risk • Limited risk • High risk • Prohibited use","link":"https://artificialintelligenceact.eu/"},
-  {"ref":"AIA-2","topic":"Data governance","type":"table","question":"Describe your data governance for high‑risk AI: • Dataset provenance • Bias monitoring • Data quality controls","link":"https://artificialintelligenceact.eu/article/10/"},
-  {"ref":"AIA-3","topic":"Transparency","type":"free text","question":"What user transparency measures are implemented (instructions, disclosures, labeling)?","link":"https://artificialintelligenceact.eu/article/13/"},
-  {"ref":"AIA-4","topic":"Human oversight","type":"free text","question":"Describe your human oversight procedures for model outputs and overrides.","link":"https://artificialintelligenceact.eu/article/14/"}
-]
-
