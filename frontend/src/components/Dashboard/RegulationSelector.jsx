@@ -133,9 +133,30 @@ const RegulationSelector = ({ mode = 'selection' }) => {
 
   return (
     <div className="regulation-selector">
-      <div className="selector-header">
-        <h2>Your Compliance Workspace</h2>
-        <p>Select and manage the EU regulations that apply to your business.</p>
+      {/* Welcome Hero Section */}
+      <div className="welcome-hero">
+        <div className="welcome-content">
+          <h1>Welcome to Raylow</h1>
+          <div className="assessment-section">
+            <h2>Let's find out what regulations apply to you</h2>
+            <p>
+              Answer a few quick questions and we'll route you to the exact
+              EU regulations that apply to your organisation.
+            </p>
+            <button className="assessment-cta" onClick={() => navigate('/assessment')}>
+              Start Assessment
+            </button>
+          </div>
+
+          <div className="divider">
+            <span>or</span>
+          </div>
+
+          <div className="manual-selection">
+            <h3>Choose specific regulations</h3>
+            <p>Already know which regulations you need? Select them directly below.</p>
+          </div>
+        </div>
       </div>
 
       {/* Active Regulations Section */}
@@ -277,16 +298,6 @@ const RegulationSelector = ({ mode = 'selection' }) => {
         </div>
       )}
 
-      {/* First Time Experience */}
-      {activeRegulations.length === 0 && (
-        <div className="first-time-experience">
-          <div className="welcome-message">
-            <h3>Welcome to Raylow! 👋</h3>
-            <p>To get started, select the EU regulations that apply to your business.
-               You can always add or remove regulations later.</p>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
