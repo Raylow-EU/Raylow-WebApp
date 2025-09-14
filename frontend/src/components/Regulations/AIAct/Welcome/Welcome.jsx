@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BsCalendar, BsRobot } from "react-icons/bs";
-import { FaBrain, FaShield, FaEye, FaCogs } from "react-icons/fa";
+import { FaBrain, FaShieldAlt, FaEye, FaCogs } from "react-icons/fa";
 import { HiArrowNarrowRight, HiCheckCircle } from "react-icons/hi";
 import { Doughnut } from "react-chartjs-2";
 import {
@@ -169,7 +169,7 @@ const WelcomeAI = () => {
 
           <div className="stat-card compliance-card">
             <div className="stat-icon-container">
-              <FaShield className="stat-icon" />
+              <FaShieldAlt className="stat-icon" />
             </div>
             <div className="stat-info">
               <h3>{dashboardData?.stats.complianceScore || 76}%</h3>
