@@ -7,6 +7,7 @@ import {
   FaHome,
   FaCubes,
   FaChartBar,
+  FaChartLine,
   FaUsers,
   FaCog,
   FaShoppingCart,
@@ -26,12 +27,13 @@ const regs = [
     icon: FaLeaf,
     routes: {
       welcome: "/dashboard/csrd",
-      assessment: "/dashboard/csrd/flashcards",
+      flashcards: "/dashboard/csrd/flashcards",
       dashboard: "/dashboard/csrd/dashboard",
     },
     subTabs: [
-      { key: "dashboard", label: "Dashboard", route: "/dashboard/csrd/dashboard" },
-      { key: "assessment", label: "Assessment", route: "/dashboard/csrd/flashcards" }
+      { key: "welcome", label: "Welcome", route: "/dashboard/csrd", icon: FaHome },
+      { key: "dashboard", label: "Dashboard", route: "/dashboard/csrd/dashboard", icon: FaChartLine },
+      { key: "flashcards", label: "Flashcards", route: "/dashboard/csrd/flashcards", icon: FaCubes }
     ]
   },
   {
@@ -40,12 +42,13 @@ const regs = [
     icon: FaShieldAlt,
     routes: {
       welcome: "/dashboard/gdpr",
-      assessment: "/dashboard/gdpr/flashcards",
+      flashcards: "/dashboard/gdpr/flashcards",
       dashboard: "/dashboard/gdpr/dashboard",
     },
     subTabs: [
-      { key: "dashboard", label: "Dashboard", route: "/dashboard/gdpr/dashboard" },
-      { key: "assessment", label: "Assessment", route: "/dashboard/gdpr/flashcards" }
+      { key: "welcome", label: "Welcome", route: "/dashboard/gdpr", icon: FaHome },
+      { key: "dashboard", label: "Dashboard", route: "/dashboard/gdpr/dashboard", icon: FaChartLine },
+      { key: "flashcards", label: "Flashcards", route: "/dashboard/gdpr/flashcards", icon: FaCubes }
     ]
   },
   {
@@ -54,12 +57,13 @@ const regs = [
     icon: FaBrain,
     routes: {
       welcome: "/dashboard/ai-act",
-      assessment: "/dashboard/ai-act/flashcards",
+      flashcards: "/dashboard/ai-act/flashcards",
       dashboard: "/dashboard/ai-act/dashboard",
     },
     subTabs: [
-      { key: "dashboard", label: "Dashboard", route: "/dashboard/ai-act/dashboard" },
-      { key: "assessment", label: "Assessment", route: "/dashboard/ai-act/flashcards" }
+      { key: "welcome", label: "Welcome", route: "/dashboard/ai-act", icon: FaHome },
+      { key: "dashboard", label: "Dashboard", route: "/dashboard/ai-act/dashboard", icon: FaChartLine },
+      { key: "flashcards", label: "Flashcards", route: "/dashboard/ai-act/flashcards", icon: FaCubes }
     ]
   },
 ];
@@ -70,9 +74,12 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
-  // Collapse sidebar except on the dashboard home
+  // Keep sidebar expanded on dashboard and regulation pages
   useEffect(() => {
-    setCollapsed(location.pathname !== "/dashboard");
+    // Keep expanded for dashboard home and all regulation pages
+    const shouldKeepExpanded = location.pathname === "/dashboard" ||
+                              location.pathname.match(/\/dashboard\/(csrd|gdpr|ai-act)/);
+    setCollapsed(!shouldKeepExpanded);
   }, [location.pathname]);
 
   const handleLogout = () => {
@@ -86,6 +93,11 @@ const Dashboard = () => {
 
   const activeRegKey = (() => {
     const m = location.pathname.match(/\/dashboard\/(csrd|gdpr|ai-act)/);
+    console.log('DEBUG: activeRegKey calculation:', {
+      pathname: location.pathname,
+      match: m,
+      result: m ? m[1] : undefined
+    });
     return m ? m[1] : undefined;
   })();
 
@@ -133,28 +145,55 @@ const Dashboard = () => {
           </NavLink>
 
           {regs.map((reg) => (
-            <div key={reg.key}>
-              <NavLink
-                to={reg.routes.welcome}
-                className={({ isActive }) =>
-                  isActive || activeRegKey === reg.key ? "active" : ""
-                }
+            <div key={reg.key} className="regulation-nav-group">
+              <div
+                className="regulation-main-nav"
                 title={reg.label}
+                onClick={() => {
+                  console.log(`DEBUG: Main regulation nav clicked:`, {
+                    regKey: reg.key,
+                    activeRegKey,
+                    navigatingTo: reg.routes.welcome
+                  });
+                  navigate(reg.routes.welcome);
+                }}
+                style={{ cursor: 'pointer' }}
               >
                 <reg.icon /> {!collapsed && reg.label}
-              </NavLink>
+                {!collapsed && activeRegKey === reg.key && (
+                  <span className="expand-indicator">▼</span>
+                )}
+                {!collapsed && activeRegKey !== reg.key && (
+                  <span className="expand-indicator">▶</span>
+                )}
+              </div>
               {activeRegKey === reg.key && reg.subTabs && !collapsed && (
                 <div className="reg-subtabs">
-                  {reg.subTabs.map((subTab) => (
-                    <Link
-                      key={subTab.key}
-                      to={subTab.route}
-                      className="subtab-link"
-                      title={subTab.label}
-                    >
-                      {subTab.label}
-                    </Link>
-                  ))}
+                  {reg.subTabs.map((subTab) => {
+                    const SubTabIcon = subTab.icon;
+                    return (
+                      <NavLink
+                        key={subTab.key}
+                        to={subTab.route}
+                        end
+                        className={({ isActive }) => {
+                          console.log(`DEBUG: ${reg.key} ${subTab.key} subtab NavLink:`, {
+                            to: subTab.route,
+                            currentPath: location.pathname,
+                            isActive,
+                            exactMatch: location.pathname === subTab.route,
+                            activeRegKey,
+                            regKey: reg.key
+                          });
+                          return `subtab-link ${isActive ? "active" : ""}`;
+                        }}
+                        title={subTab.label}
+                      >
+                        <SubTabIcon className="subtab-icon" />
+                        {subTab.label}
+                      </NavLink>
+                    );
+                  })}
                 </div>
               )}
             </div>
