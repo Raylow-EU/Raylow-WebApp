@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import flashcardsData from "./data/esrs_flashcards.json";
+import flashcardsData from "./data/ai_act_flashcards.json";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./Flashcards.css";

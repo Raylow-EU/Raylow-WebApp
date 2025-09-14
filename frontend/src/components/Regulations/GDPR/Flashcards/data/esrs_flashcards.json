@@ -1,7 +1,0 @@
-[
-  {"ref":"GDPR-1","topic":"Lawful bases","type":"multiple choice","question":"Which lawful basis do you rely on for core processing activities? • Consent • Contract • Legal obligation • Legitimate interests • Vital interests • Public task","link":"https://gdpr-info.eu/art-6-gdpr/"},
-  {"ref":"GDPR-2","topic":"Data subject rights","type":"table","question":"Describe your process and SLAs for handling data subject requests (DSARs): • Intake channel • Verification • Fulfilment timeline • Exceptions","link":"https://gdpr-info.eu/chapter-3/"},
-  {"ref":"GDPR-3","topic":"DPIA","type":"free text","question":"List activities subject to DPIA and summarize your risk mitigation measures.","link":"https://gdpr-info.eu/art-35-gdpr/"},
-  {"ref":"GDPR-4","topic":"Breach notification","type":"date","question":"When did you last test your incident response plan and breach notification workflow?","link":"https://gdpr-info.eu/art-33-gdpr/"}
-]
-

@@ -5,26 +5,25 @@ const ResumePage = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/dashboard/csrd/flashcards");
+    navigate("/assessment");
   };
 
   return (
     <div className="resume-wrap">
       <div className="resume-hero">
-        <div className="resume-copy">
+        <div className="resume-content">
           <h1>Welcome back to Raylow</h1>
-          <p>
-            Let us guide you to the regulations that matter most for your
-            organisation.
-          </p>
-          <button className="resume-cta" onClick={handleClick}>
-            Let's find out what regulations concern you!
-          </button>
-        </div>
-        <div className="resume-visual" aria-hidden>
-          <div className="pulse" />
-          <div className="pulse pulse-2" />
-          <div className="pulse pulse-3" />
+          
+          <div className="assessment-section">
+            <h2>Let's find out what regulations apply to you</h2>
+            <p>
+              Answer a few quick questions and we'll route you to the exact
+              EU regulations that apply to your organisation.
+            </p>
+            <button className="resume-cta" onClick={handleClick}>
+              Start assessment
+            </button>
+          </div>
         </div>
       </div>
     </div>

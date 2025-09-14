@@ -1,0 +1,95 @@
+[
+  {
+    "section": "Company profile and footprint",
+    "questions": [
+      {"id":"footprint-entity","text":"Do you have any legal entity, branch, or stable operations in the EU/EEA?","type":"boolean"},
+      {"id":"footprint-employees","text":"How many employees do you have globally and in the EU?","type":"number"},
+      {"id":"footprint-turnover","text":"What was your EU and global net turnover last year?","type":"currency"},
+      {"id":"footprint-listed","text":"Are you listed on an EU‑regulated market or a public‑interest entity?","type":"boolean"}
+    ]
+  },
+  {
+    "section": "Corporate sustainability (CSRD/ESRS)",
+    "questions": [
+      {"id":"csrd-thresholds","text":"Do you meet at least two: >250 employees, >€40m turnover, >€20m assets, or are listed?","type":"boolean"},
+      {"id":"csrd-non-eu","text":"Are you a non‑EU company with >€150m EU turnover and a large EU branch/subsidiary?","type":"boolean"},
+      {"id":"csrd-consolidated","text":"Do you prepare consolidated accounts for EU subsidiaries?","type":"boolean"}
+    ]
+  },
+  {
+    "section": "Personal data & communications (GDPR/ePrivacy)",
+    "questions": [
+      {"id":"gdpr-scope","text":"Do you process personal data of individuals in the EU/EEA?","type":"boolean"},
+      {"id":"gdpr-special","text":"Do you process special‑category or criminal data at scale?","type":"boolean"},
+      {"id":"gdpr-transfers","text":"Do you transfer personal data outside the EEA or use non‑EEA processors?","type":"boolean"},
+      {"id":"eprivacy-marketing","text":"Do you use cookies/trackers or run email/SMS marketing to EU users?","type":"boolean"}
+    ]
+  },
+  {
+    "section": "Cybersecurity & operational resilience (NIS2)",
+    "questions": [
+      {"id":"nis2-sectors","text":"Do you operate in any NIS2 sectors (energy, transport, health, finance, telecom, cloud, data centre, digital platforms, MSPs)?","type":"multi"},
+      {"id":"nis2-cloud","text":"Are you a cloud, DNS, CDN, or data‑centre service with EU customers?","type":"boolean"}
+    ]
+  },
+  {
+    "section": "Artificial Intelligence (AI Act)",
+    "questions": [
+      {"id":"aia-deploy","text":"Do you develop, place on the market, or deploy AI systems in the EU?","type":"boolean"},
+      {"id":"aia-highrisk","text":"Do you have any high‑risk AI use cases (e.g., hiring, credit, biometric ID, medical)?","type":"boolean"},
+      {"id":"aia-transparency","text":"Do you use emotion recognition, deepfakes, or chatbots with EU users?","type":"boolean"}
+    ]
+  },
+  {
+    "section": "Digital platforms & markets (DSA/DMA)",
+    "questions": [
+      {"id":"dsa-platform","text":"Do you operate an online platform/marketplace, app store, social network, or search with EU users?","type":"boolean"},
+      {"id":"dsa-broker","text":"Do you broker transactions between consumers and traders in the EU?","type":"boolean"},
+      {"id":"dma-gatekeeper","text":"Do you meet ‘gatekeeper’ thresholds for core platform services?","type":"boolean"}
+    ]
+  },
+  {
+    "section": "Financial services & payments (MiCA/PSD2/MiFID)",
+    "questions": [
+      {"id":"mifid","text":"Do you provide investment or brokerage services in the EU?","type":"boolean"},
+      {"id":"mica","text":"Do you issue or trade cryptoassets, or run an exchange/wallet in the EU?","type":"boolean"},
+      {"id":"psd2","text":"Do you provide payment services to EU users or merchants?","type":"boolean"}
+    ]
+  },
+  {
+    "section": "Product compliance & CE marking",
+    "questions": [
+      {"id":"ce-products","text":"Do you place products on the EU market (electronics, machinery, toys, etc.)?","type":"boolean"},
+      {"id":"iot-cra","text":"Are your products connected/IoT or software‑heavy?","type":"boolean"},
+      {"id":"battery","text":"Do you sell batteries or devices containing batteries in the EU?","type":"boolean"},
+      {"id":"packaging","text":"Do you place packaging or packaged goods on the EU market?","type":"boolean"},
+      {"id":"weee-rohs","text":"Are you in EEE scope (WEEE take‑back, RoHS hazardous substances)?","type":"boolean"},
+      {"id":"reach-clp","text":"Do you manufacture or import chemicals/mixtures?","type":"boolean"}
+    ]
+  },
+  {
+    "section": "Environment, energy & trade",
+    "questions": [
+      {"id":"ets","text":"Do you operate installations with significant emissions in the EU (EU ETS)?","type":"boolean"},
+      {"id":"cbam","text":"Do you import covered goods (steel, cement, aluminium, etc.) into the EU?","type":"boolean"},
+      {"id":"waste","text":"Do you generate hazardous waste or ship waste cross‑border?","type":"boolean"}
+    ]
+  },
+  {
+    "section": "Employment & HR",
+    "questions": [
+      {"id":"whistleblower","text":"Do you have ≥50 employees in any EU country?","type":"boolean"},
+      {"id":"posting","text":"Do you post workers across EU borders or use temporary agency workers?","type":"boolean"},
+      {"id":"algo-mgmt","text":"Do you use algorithmic management for employees/contractors?","type":"boolean"}
+    ]
+  },
+  {
+    "section": "Commerce & consumer protection",
+    "questions": [
+      {"id":"b2c","text":"Do you sell to EU consumers (B2C)?","type":"boolean"},
+      {"id":"subscriptions","text":"Do you offer subscription services or auto‑renewals in the EU?","type":"boolean"},
+      {"id":"geoblocking","text":"Do you geo‑target EU countries or price discriminate by location?","type":"boolean"}
+    ]
+  }
+]
+
