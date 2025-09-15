@@ -14,6 +14,7 @@ import {
   FaLeaf,
   FaShieldAlt,
   FaBrain,
+  FaComments,
 } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
@@ -205,6 +206,13 @@ const Dashboard = () => {
             title="Reports"
           >
             <FaChartBar /> {!collapsed && "Reports"}
+          </NavLink>
+          <NavLink
+            to="/dashboard/chat"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            title="AI Assistant"
+          >
+            <FaComments /> {!collapsed && "AI Assistant"}
           </NavLink>
           <NavLink
             to="/dashboard/team"
