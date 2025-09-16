@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import flashcardsData from "./data/ai_act_flashcards.json";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ChatModal from "../../../../features/chat/ChatModal";
 import "./Flashcards.css";
 
 const QuestionRenderer = ({ question }) => {
@@ -120,6 +121,7 @@ const Flashcards = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
 
   const card = flashcardsData[index];
   const total = flashcardsData.length;
@@ -172,7 +174,7 @@ const Flashcards = () => {
   };
 
   const handleAIAssistantClick = () => {
-    navigate('/dashboard/ai-act');
+    setIsChatModalOpen(true);
   };
 
   if (completed) {
@@ -288,6 +290,12 @@ const Flashcards = () => {
           </div>
         )}
       </div>
+
+      <ChatModal
+        isOpen={isChatModalOpen}
+        onClose={() => setIsChatModalOpen(false)}
+        regulationType="AI Act"
+      />
     </div>
   );
 };

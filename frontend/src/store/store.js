@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./slices/authSlice";
+import chatReducer from "../features/chat/chatSlice";
 
 // Saves Redux state to localStorage for persistence across browser sessions
 const saveToLocalStorage = (state) => {
@@ -26,10 +27,11 @@ const loadFromLocalStorage = () => {
 // Load persisted state from localStorage
 const persistedState = loadFromLocalStorage();
 
-// Main Redux store configuration with auth reducer and persistence
+// Main Redux store configuration with auth and chat reducers and persistence
 export const store = configureStore({
   reducer: {
     auth: authReducer, // Authentication state management
+    chat: chatReducer, // Chat state management
   },
   preloadedState: persistedState, // Restore state from localStorage
   middleware: (getDefaultMiddleware) =>

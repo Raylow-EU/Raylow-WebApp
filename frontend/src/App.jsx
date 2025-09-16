@@ -26,6 +26,7 @@ import CSRDDashboardHome from "./components/Regulations/CSRD/Personalized_dashbo
 import GDPRDashboardHome from "./components/Regulations/GDPR/Personalized_dashboard/DashboardHome.jsx";
 import AIActDashboardHome from "./components/Regulations/AIAct/Personalized_dashboard/DashboardHome.jsx";
 import RegulatoryAssessment from "./components/Assessment/RegulatoryAssessment.jsx";
+import ChatInterface from "./features/chat/ChatInterface.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -180,6 +181,7 @@ const App = () => {
           <Route path="reports" element={<ResumePage />} />
           <Route path="team" element={<ResumePage />} />
           <Route path="settings" element={<ResumePage />} />
+          <Route path="chat" element={<ChatInterface />} />
         </Route>
       </Routes>
     </Router>

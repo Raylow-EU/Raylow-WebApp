@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import flashcardsData from "./data_CSRD_flashcards/esrs_flashcards.json";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ChatModal from "../../../../features/chat/ChatModal";
 import "./Flashcards.css";
 
 const QuestionRenderer = ({ question }) => {
@@ -118,6 +119,7 @@ const Flashcards = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
 
   const card = flashcardsData[index];
   const total = flashcardsData.length;
@@ -164,7 +166,7 @@ const Flashcards = () => {
     setShowError(false);
   };
 
-  const handleAIAssistantClick = () => navigate("/dashboard/csrd");
+  const handleAIAssistantClick = () => setIsChatModalOpen(true);
 
   if (completed) {
     return (
@@ -229,6 +231,12 @@ const Flashcards = () => {
 
         {showError && <div className="error-message">❌ {errorMessage}</div>}
       </div>
+
+      <ChatModal
+        isOpen={isChatModalOpen}
+        onClose={() => setIsChatModalOpen(false)}
+        regulationType="CSRD"
+      />
     </div>
   );
 };

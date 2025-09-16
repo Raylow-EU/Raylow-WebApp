@@ -7,13 +7,15 @@
       "Bash(mv:*)",
       "Bash(rm:*)",
       "Bash(claude mcp add:*)",
-      "Bash(claude mcp:*)"
+      "Bash(claude mcp:*)",
+      "Bash(npm start)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []
   },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "framer"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }
