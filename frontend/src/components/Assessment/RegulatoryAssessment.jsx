@@ -187,6 +187,15 @@ const RegulatoryAssessment = () => {
   return (
     <div className="assessment-wrap">
       <div className="assessment-container">
+        {currentSection === 0 && (
+          <div className="welcome-header">
+            <h1>Welcome to Raylow</h1>
+            <p>Let's find out what regulations apply to you</p>
+            <p className="welcome-subtitle">
+              Answer a few quick questions and we'll route you to the exact EU regulations that apply to your organisation.
+            </p>
+          </div>
+        )}
         <div className="assessment-header">
           <div className="progress-bar">
             <div 
