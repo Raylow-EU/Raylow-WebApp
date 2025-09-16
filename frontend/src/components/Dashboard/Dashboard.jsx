@@ -14,6 +14,7 @@ import {
   FaLeaf,
   FaShieldAlt,
   FaBrain,
+  FaComments,
 } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
@@ -73,6 +74,11 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const [expandedRegulations, setExpandedRegulations] = useState(() => {
+    // Initialize with the currently active regulation expanded based on URL
+    const m = location.pathname.match(/\/dashboard\/(csrd|gdpr|ai-act)/);
+    return m ? [m[1]] : [];
+  });
 
   // Keep sidebar expanded on dashboard and regulation pages
   useEffect(() => {
@@ -82,6 +88,14 @@ const Dashboard = () => {
     setCollapsed(!shouldKeepExpanded);
   }, [location.pathname]);
 
+  // Auto-expand regulation when navigating to its pages
+  useEffect(() => {
+    const m = location.pathname.match(/\/dashboard\/(csrd|gdpr|ai-act)/);
+    if (m && !expandedRegulations.includes(m[1])) {
+      setExpandedRegulations(prev => [...prev, m[1]]);
+    }
+  }, [location.pathname, expandedRegulations]);
+
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
@@ -89,6 +103,18 @@ const Dashboard = () => {
 
   const toggleSidebar = () => {
     setCollapsed((c) => !c);
+  };
+
+  const toggleRegulationExpansion = (regKey) => {
+    setExpandedRegulations(prev => {
+      if (prev.includes(regKey)) {
+        // Remove from expanded list (collapse)
+        return prev.filter(key => key !== regKey);
+      } else {
+        // Add to expanded list (expand)
+        return [...prev, regKey];
+      }
+    });
   };
 
   const activeRegKey = (() => {
@@ -147,27 +173,27 @@ const Dashboard = () => {
           {regs.map((reg) => (
             <div key={reg.key} className="regulation-nav-group">
               <div
-                className="regulation-main-nav"
+                className={`regulation-main-nav ${activeRegKey === reg.key ? 'active' : ''}`}
                 title={reg.label}
                 onClick={() => {
                   console.log(`DEBUG: Main regulation nav clicked:`, {
                     regKey: reg.key,
-                    activeRegKey,
-                    navigatingTo: reg.routes.welcome
+                    isExpanded: expandedRegulations.includes(reg.key),
+                    action: expandedRegulations.includes(reg.key) ? 'collapsing' : 'expanding'
                   });
-                  navigate(reg.routes.welcome);
+                  toggleRegulationExpansion(reg.key);
                 }}
                 style={{ cursor: 'pointer' }}
               >
                 <reg.icon /> {!collapsed && reg.label}
-                {!collapsed && activeRegKey === reg.key && (
+                {!collapsed && expandedRegulations.includes(reg.key) && (
                   <span className="expand-indicator">▼</span>
                 )}
-                {!collapsed && activeRegKey !== reg.key && (
+                {!collapsed && !expandedRegulations.includes(reg.key) && (
                   <span className="expand-indicator">▶</span>
                 )}
               </div>
-              {activeRegKey === reg.key && reg.subTabs && !collapsed && (
+              {expandedRegulations.includes(reg.key) && reg.subTabs && !collapsed && (
                 <div className="reg-subtabs">
                   {reg.subTabs.map((subTab) => {
                     const SubTabIcon = subTab.icon;
@@ -205,6 +231,13 @@ const Dashboard = () => {
             title="Reports"
           >
             <FaChartBar /> {!collapsed && "Reports"}
+          </NavLink>
+          <NavLink
+            to="/dashboard/chat"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            title="AI Assistant"
+          >
+            <FaComments /> {!collapsed && "AI Assistant"}
           </NavLink>
           <NavLink
             to="/dashboard/team"
