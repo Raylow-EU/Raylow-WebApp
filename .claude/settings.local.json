@@ -9,7 +9,8 @@
       "Bash(claude mcp add:*)",
       "Bash(claude mcp:*)",
       "Bash(npm start)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

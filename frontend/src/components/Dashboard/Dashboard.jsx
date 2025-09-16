@@ -179,9 +179,17 @@ const Dashboard = () => {
                   console.log(`DEBUG: Main regulation nav clicked:`, {
                     regKey: reg.key,
                     isExpanded: expandedRegulations.includes(reg.key),
-                    action: expandedRegulations.includes(reg.key) ? 'collapsing' : 'expanding'
+                    action: expandedRegulations.includes(reg.key) ? 'collapsing' : 'expanding',
+                    collapsed
                   });
-                  toggleRegulationExpansion(reg.key);
+
+                  if (collapsed) {
+                    // When collapsed, navigate to the regulation welcome page
+                    navigate(reg.routes.welcome);
+                  } else {
+                    // When expanded, toggle the expansion state
+                    toggleRegulationExpansion(reg.key);
+                  }
                 }}
                 style={{ cursor: 'pointer' }}
               >
