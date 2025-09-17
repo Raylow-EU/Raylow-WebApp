@@ -80,8 +80,19 @@ const AuthStateListener = ({ children }) => {
             dispatch(setUser(completeUserData));
           } catch (error) {
             console.error("💥 Error fetching extended user data:", error);
-            console.log("🔄 Continuing with basic user data only");
-            // User is already logged in with basic data, so this is fine
+            console.log("🔄 Database unavailable - user will need to complete onboarding");
+
+            // If database is unavailable, assume user needs onboarding
+            // This prevents getting stuck in "Preparing workspace" state
+            const fallbackUserData = {
+              ...baseUserData,
+              companyId: null,
+              companyRole: null,
+              onboardingBasicCompleted: false, // Assume needs onboarding when DB unavailable
+              company: null,
+            };
+
+            dispatch(setUser(fallbackUserData));
           }
         }, 100); // Small delay to ensure UI updates first
       } else {

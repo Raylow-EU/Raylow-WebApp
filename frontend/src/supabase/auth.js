@@ -79,135 +79,54 @@ export const logoutUser = async () => {
 
 // Fetches extended user data from database (company info, onboarding status, etc.)
 export const fetchUserData = async (uid) => {
+  console.log("🔍 Fetching user data from backend API for uid:", uid);
+
   try {
-    console.log("🔍 Fetching user data from database for uid:", uid);
+    // Use backend API instead of direct Supabase query to avoid RLS issues
+    const response = await fetch(`http://localhost:3001/api/onboarding/status/${uid}`);
 
-    // First, let's try a simple query to test permissions
-    console.log("🔍 Testing database connection and permissions...");
-    const testQuery = supabase
-      .from("users")
-      .select("id, email")
-      .eq("id", uid)
-      .limit(1);
-
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(
-        () => reject(new Error("Database query timeout after 3 seconds")),
-        3000
-      )
-    );
-
-    const { data: testData, error: testError } = await Promise.race([
-      testQuery,
-      timeoutPromise,
-    ]);
-
-    if (testError) {
-      console.error("❌ Database connection/permission error:", testError);
-      console.log("🔍 Error details:", {
-        code: testError.code,
-        message: testError.message,
-        details: testError.details,
-        hint: testError.hint,
-      });
-
-      // If it's a permission issue, throw a more specific error
-      if (
-        testError.code === "42501" ||
-        testError.message?.includes("permission")
-      ) {
-        throw new Error(
-          "Database permission denied. Please check RLS policies."
-        );
-      }
-
-      throw testError;
+    if (!response.ok) {
+      throw new Error(`Backend API error: ${response.status}`);
     }
 
-    if (!testData || testData.length === 0) {
-      console.log("👤 User not found in database, creating profile...");
-      const createdUser = await createUserProfile(uid);
-      console.log("✅ User profile created:", createdUser);
-      return createdUser;
-    }
-
-    console.log("✅ Basic query successful, fetching full user data...");
-
-    // Now fetch the full user data
-    const fullQuery = supabase
-      .from("users")
-      .select(
-        `
-        id,
-        email,
-        full_name,
-        company_id,
-        company_role,
-        onboarding_basic_completed_at
-      `
-      )
-      .eq("id", uid)
-      .single();
-
-    const { data, error } = await Promise.race([fullQuery, timeoutPromise]);
-
-    if (error) {
-      console.error("❌ Full query error:", error);
-      throw error;
-    }
-
-    console.log("🔍 Raw database data:", {
-      id: data.id,
-      email: data.email,
-      full_name: data.full_name,
-      company_id: data.company_id,
-      company_role: data.company_role,
-      onboarding_basic_completed_at: data.onboarding_basic_completed_at,
-    });
+    const data = await response.json();
+    console.log("✅ Got user data from backend:", data);
 
     const userData = {
-      uid: data.id,
-      email: data.email,
-      displayName: data.full_name,
-      companyId: data.company_id,
-      companyRole: data.company_role,
-      onboardingBasicCompleted: !!data.onboarding_basic_completed_at,
-      company: null, // We'll fetch company data separately if needed
+      uid: data.user.id,
+      email: data.user.email || "", // Backend might not return email
+      displayName: data.user.fullName || "",
+      companyId: data.user.companyId,
+      companyRole: data.user.companyRole,
+      onboardingBasicCompleted: data.user.onboardingBasicCompleted,
+      company: data.company,
     };
 
-    console.log("✅ User data fetched successfully:", userData);
-    console.log("🔍 Onboarding flag details:", {
-      rawValue: data.onboarding_basic_completed_at,
-      booleanValue: !!data.onboarding_basic_completed_at,
-    });
+    console.log("✅ Returning user data from backend:", userData);
     return userData;
   } catch (error) {
-    console.error("💥 Error fetching user data:", error);
+    console.error("💥 Backend API failed, falling back to auth data:", error);
 
-    // If database is having issues, return basic user data from auth
-    console.log("🔄 Falling back to basic auth user data");
-    try {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (user && user.id === uid) {
-        const basicUserData = {
-          uid: user.id,
-          email: user.email,
-          displayName: user.user_metadata?.full_name || "",
-          companyId: null,
-          companyRole: null,
-          onboardingBasicCompleted: false,
-          company: null,
-        };
-        console.log("✅ Returning basic user data:", basicUserData);
-        return basicUserData;
-      }
-    } catch (fallbackError) {
-      console.error("💥 Fallback also failed:", fallbackError);
+    // Fallback to basic auth data if backend fails
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user && user.id === uid) {
+      const basicUserData = {
+        uid: user.id,
+        email: user.email,
+        displayName: user.user_metadata?.full_name || "",
+        companyId: null,
+        companyRole: null,
+        onboardingBasicCompleted: false, // Assume needs onboarding if backend fails
+        company: null,
+      };
+      console.log("✅ Returning fallback auth data:", basicUserData);
+      return basicUserData;
     }
 
-    throw error;
+    throw new Error("Could not fetch user data from any source");
   }
 };
 
