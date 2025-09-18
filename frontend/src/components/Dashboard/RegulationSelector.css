@@ -469,3 +469,216 @@
     padding: 1.5rem;
   }
 }
+
+/* Personalized Section Styles */
+.loading-recommendations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  color: #64748b;
+}
+
+.loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid #e2e8f0;
+  border-top: 3px solid #f85a2b;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.personalized-section {
+  background: linear-gradient(135deg, #fefcf7 0%, #fef7ed 30%, #fff7ed 60%, #fef3e7 100%);
+}
+
+.personalized-header {
+  padding: 3rem 2rem 2rem;
+  text-align: center;
+}
+
+.personalized-content h1 {
+  margin: 0 0 2rem 0;
+  font-size: 2.5rem;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.assessment-summary {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #f85a2b;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #64748b;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.assessment-summary-text {
+  color: #475569;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.view-toggle {
+  display: flex;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.view-toggle button {
+  flex: 1;
+  padding: 1rem 2rem;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-toggle button.active {
+  background: #f85a2b;
+  color: white;
+}
+
+.view-toggle button:hover:not(.active) {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+/* Personalized Regulation Cards */
+.regulation-card.recommended {
+  position: relative;
+  border: 2px solid #f85a2b;
+  background: linear-gradient(135deg, #fef7f0 0%, #fff5eb 100%);
+}
+
+.regulation-card.coming-soon {
+  position: relative;
+  border: 2px solid #e2e8f0;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  opacity: 0.8;
+}
+
+.recommended-badge,
+.coming-soon-badge {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  background: #f85a2b;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0 12px 0 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.coming-soon-badge {
+  background: #94a3b8;
+}
+
+.regulation-card.recommended:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(248, 90, 43, 0.15);
+}
+
+.regulation-card.coming-soon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.regulations-section.personalized h3,
+.regulations-section.unsupported h3 {
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.section-description {
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.action-btn.disabled {
+  background: #e2e8f0 !important;
+  color: #94a3b8 !important;
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+
+/* Additional Mobile Responsive for Personalized Elements */
+@media (max-width: 768px) {
+  .personalized-content h1 {
+    font-size: 2rem;
+  }
+
+  .personalized-header {
+    padding: 2rem 1rem 1rem;
+  }
+
+  .summary-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  .view-toggle {
+    max-width: 100%;
+  }
+
+  .recommended-badge,
+  .coming-soon-badge {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
