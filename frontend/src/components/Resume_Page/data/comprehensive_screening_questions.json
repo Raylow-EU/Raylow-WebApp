@@ -1,0 +1,1351 @@
+[
+  {
+    "section": "Company Profile & Legal Structure",
+    "description": "Understanding your company's basic structure and legal presence",
+    "questions": [
+      {
+        "id": "company-legal-form",
+        "text": "What is your company's legal form?",
+        "type": "select",
+        "options": ["Private Limited Company", "Public Limited Company", "Partnership", "Sole Proprietorship", "Cooperative", "Branch Office", "Subsidiary", "Other"],
+        "required": true
+      },
+      {
+        "id": "company-incorporation",
+        "text": "Where is your company incorporated/registered?",
+        "type": "country-select",
+        "required": true
+      },
+      {
+        "id": "company-headquarters",
+        "text": "Where is your company's headquarters located?",
+        "type": "country-select",
+        "required": true
+      },
+      {
+        "id": "eu-presence",
+        "text": "Do you have any legal presence in the EU/EEA?",
+        "type": "multi-select",
+        "options": [
+          "Headquarters in EU/EEA",
+          "Subsidiary companies in EU/EEA", 
+          "Branch offices in EU/EEA",
+          "Representative offices in EU/EEA",
+          "Permanent establishment in EU/EEA",
+          "No legal presence in EU/EEA"
+        ]
+      },
+      {
+        "id": "eu-countries-presence",
+        "text": "In which EU/EEA countries do you have a legal presence? (Select all that apply)",
+        "type": "multi-select",
+        "options": ["Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Ireland", "Italy", "Latvia", "Lithuania", "Luxembourg", "Malta", "Netherlands", "Poland", "Portugal", "Romania", "Slovakia", "Slovenia", "Spain", "Sweden", "Iceland", "Liechtenstein", "Norway"]
+      }
+    ]
+  },
+  {
+    "section": "Company Size & Financial Profile",
+    "description": "Financial and operational scale indicators",
+    "questions": [
+      {
+        "id": "total-employees-global",
+        "text": "How many employees does your company have globally? (Include full-time, part-time, contractors)",
+        "type": "number",
+        "required": true
+      },
+      {
+        "id": "total-employees-eu",
+        "text": "How many employees do you have in the EU/EEA specifically?",
+        "type": "number",
+        "required": true
+      },
+      {
+        "id": "annual-turnover-global",
+        "text": "What was your company's global annual turnover/revenue last year? (in EUR)",
+        "type": "currency",
+        "required": true,
+        "help": "Please provide the amount in EUR. If your accounts are in another currency, provide the EUR equivalent."
+      },
+      {
+        "id": "annual-turnover-eu",
+        "text": "What was your annual turnover/revenue from EU/EEA operations last year? (in EUR)",
+        "type": "currency",
+        "required": true
+      },
+      {
+        "id": "total-assets",
+        "text": "What is your company's total balance sheet assets? (in EUR)",
+        "type": "currency",
+        "required": true
+      },
+      {
+        "id": "market-listing",
+        "text": "Is your company listed on any stock exchange?",
+        "type": "select",
+        "options": ["Listed on EU-regulated market", "Listed on non-EU market only", "Not listed", "Planning to list"]
+      },
+      {
+        "id": "public-interest-entity",
+        "text": "Is your company considered a Public Interest Entity?",
+        "type": "boolean",
+        "help": "This includes banks, insurance companies, listed companies, and entities designated by member states as public interest entities"
+      },
+      {
+        "id": "company-growth",
+        "text": "How would you describe your company's current growth phase?",
+        "type": "select",
+        "options": ["Startup (0-2 years)", "Growth stage (2-5 years)", "Mature (5+ years)", "Established multinational", "Legacy/declining"]
+      }
+    ]
+  },
+  {
+    "section": "Business Activities & Industry Sectors",
+    "description": "Detailed breakdown of your business operations and industry classification",
+    "questions": [
+      {
+        "id": "primary-business-activity",
+        "text": "What is your company's primary business activity?",
+        "type": "select",
+        "options": [
+          "Manufacturing",
+          "Technology/Software",
+          "Financial services",
+          "Healthcare/Medical",
+          "Energy & utilities",
+          "Transportation & logistics",
+          "Telecommunications",
+          "Retail/E-commerce",
+          "Professional services",
+          "Media & entertainment",
+          "Real estate",
+          "Agriculture & food",
+          "Education",
+          "Government/Public sector",
+          "Other"
+        ],
+        "required": true
+      },
+      {
+        "id": "detailed-business-activities",
+        "text": "Which specific business activities does your company engage in? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Software development",
+          "Hardware manufacturing",
+          "Data processing services",
+          "Cloud services provision",
+          "Artificial intelligence/machine learning",
+          "Financial trading/investment",
+          "Insurance services",
+          "Banking services",
+          "Payment processing",
+          "Cryptocurrency/digital assets",
+          "Medical device manufacturing",
+          "Pharmaceutical manufacturing",
+          "Clinical trials/research",
+          "Healthcare services",
+          "Energy generation",
+          "Energy distribution",
+          "Oil & gas operations",
+          "Chemical manufacturing",
+          "Food production/processing",
+          "Consumer goods manufacturing",
+          "Automotive manufacturing",
+          "Aerospace/defense",
+          "Construction",
+          "Real estate development",
+          "Property management",
+          "Digital platform operation",
+          "Online marketplace",
+          "Social media platform",
+          "Search engine",
+          "App store operation",
+          "Content distribution",
+          "Advertising/marketing services",
+          "Consulting services",
+          "Legal services",
+          "Accounting services",
+          "Logistics/shipping",
+          "Transportation services",
+          "Telecommunications infrastructure",
+          "Internet service provision",
+          "Educational services",
+          "Research & development",
+          "Other"
+        ]
+      },
+      {
+        "id": "nace-code",
+        "text": "What is your company's NACE code (EU industry classification)?",
+        "type": "text",
+        "help": "If you don't know your NACE code, please describe your main business activity in detail"
+      },
+      {
+        "id": "regulated-sectors",
+        "text": "Does your company operate in any regulated sectors? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Energy (electricity, gas, oil)",
+          "Transport (aviation, maritime, rail, road)",
+          "Banking and financial markets",
+          "Health (hospitals, healthcare)",
+          "Drinking water supply and distribution",
+          "Waste water management",
+          "Digital infrastructure (IXPs, DNS, TLD registries)",
+          "Public administration",
+          "Space activities",
+          "Postal and courier services",
+          "Waste management",
+          "Manufacturing of chemicals",
+          "Food production and processing",
+          "Manufacturing of medical devices",
+          "Manufacturing of computer and electronic products",
+          "Research organizations",
+          "None of the above"
+        ]
+      }
+    ]
+  },
+  {
+    "section": "Data Processing & Privacy",
+    "description": "Comprehensive assessment of data processing activities",
+    "questions": [
+      {
+        "id": "personal-data-processing",
+        "text": "Do you process any personal data?",
+        "type": "boolean",
+        "required": true,
+        "help": "Personal data includes any information relating to an identified or identifiable natural person"
+      },
+      {
+        "id": "personal-data-types",
+        "text": "What types of personal data do you process? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Contact information (names, addresses, phone, email)",
+          "Identification data (ID numbers, passports, driver licenses)",
+          "Financial data (bank accounts, credit cards, payment info)",
+          "Employment data (HR records, payroll, performance)",
+          "Health data (medical records, fitness data, genetic data)",
+          "Biometric data (fingerprints, facial recognition, voice)",
+          "Location data (GPS, IP addresses, travel patterns)",
+          "Online behavior data (browsing, clicks, preferences)",
+          "Communication data (emails, messages, call logs)",
+          "Social media data",
+          "Camera/video surveillance data",
+          "Criminal conviction data",
+          "Political opinions or beliefs",
+          "Religious or philosophical beliefs",
+          "Trade union membership",
+          "Sexual orientation data",
+          "Children's data (under 16)",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "personal-data-subjects",
+        "text": "Whose personal data do you process? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Employees",
+          "Job applicants",
+          "Customers",
+          "Website visitors",
+          "App users",
+          "Suppliers/vendors",
+          "Business partners",
+          "Patients",
+          "Students",
+          "Children (under 16)",
+          "Government officials",
+          "General public",
+          "Other"
+        ]
+      },
+      {
+        "id": "data-processing-scale",
+        "text": "Approximately how many individuals' personal data do you process?",
+        "type": "select",
+        "options": ["Less than 100", "100-1,000", "1,000-10,000", "10,000-100,000", "100,000-1,000,000", "More than 1,000,000"]
+      },
+      {
+        "id": "data-processing-purposes",
+        "text": "For what purposes do you process personal data? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Employee management (HR, payroll)",
+          "Customer relationship management",
+          "Marketing and advertising",
+          "Website analytics",
+          "Product/service delivery",
+          "Payment processing",
+          "Fraud prevention and security",
+          "Legal compliance",
+          "Research and development",
+          "Profiling and automated decision-making",
+          "Credit scoring or risk assessment",
+          "Medical diagnosis or treatment",
+          "Educational services",
+          "Insurance underwriting",
+          "Recruitment and hiring",
+          "Background checks",
+          "Surveillance and monitoring",
+          "Other"
+        ]
+      },
+      {
+        "id": "data-transfers",
+        "text": "Do you transfer personal data outside the EU/EEA?",
+        "type": "boolean"
+      },
+      {
+        "id": "data-transfer-countries",
+        "text": "To which countries/regions do you transfer personal data? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "United States",
+          "United Kingdom", 
+          "Canada",
+          "Switzerland",
+          "Japan",
+          "South Korea",
+          "China",
+          "India",
+          "Australia",
+          "Brazil",
+          "Other country with adequacy decision",
+          "Other country without adequacy decision"
+        ]
+      },
+      {
+        "id": "data-processors",
+        "text": "Do you use third-party processors (cloud providers, SaaS tools, etc.) located outside the EU/EEA?",
+        "type": "boolean"
+      },
+      {
+        "id": "automated-decision-making",
+        "text": "Do you use automated decision-making or profiling that significantly affects individuals?",
+        "type": "boolean",
+        "help": "This includes AI-powered decisions about hiring, lending, insurance, healthcare, etc."
+      },
+      {
+        "id": "cookies-tracking",
+        "text": "Do you use cookies, tracking pixels, or similar technologies on your website/app?",
+        "type": "boolean"
+      },
+      {
+        "id": "marketing-communications",
+        "text": "Do you send marketing communications (email, SMS, push notifications) to individuals in the EU?",
+        "type": "boolean"
+      }
+    ]
+  },
+  {
+    "section": "Artificial Intelligence & Automation",
+    "description": "Detailed assessment of AI system usage and deployment",
+    "questions": [
+      {
+        "id": "ai-system-usage",
+        "text": "Do you develop, deploy, or use AI systems in your business?",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "id": "ai-system-types",
+        "text": "What types of AI systems do you use or develop? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Machine learning models",
+          "Natural language processing (chatbots, text analysis)",
+          "Computer vision (image/video analysis)",
+          "Recommendation systems",
+          "Predictive analytics",
+          "Automated decision-making systems",
+          "Robotic process automation",
+          "Facial recognition systems",
+          "Voice recognition/speech processing",
+          "Emotion recognition systems",
+          "Deepfake or synthetic media generation",
+          "Large language models (like GPT)",
+          "Generative AI (image, text, video generation)",
+          "Autonomous vehicles or systems",
+          "Medical AI diagnostics",
+          "Financial risk assessment AI",
+          "HR/recruitment AI systems",
+          "Content moderation AI",
+          "Fraud detection AI",
+          "Other"
+        ]
+      },
+      {
+        "id": "ai-use-cases",
+        "text": "In which business areas do you use AI? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Human resources (hiring, performance evaluation)",
+          "Credit scoring and lending decisions",
+          "Insurance underwriting and claims",
+          "Medical diagnosis or treatment recommendations",
+          "Educational assessment and evaluation",
+          "Law enforcement or justice system applications",
+          "Border control and immigration",
+          "Access control to essential services",
+          "Employee monitoring and management",
+          "Customer service and support",
+          "Marketing and advertising targeting",
+          "Product recommendations",
+          "Fraud detection and prevention",
+          "Content moderation",
+          "Supply chain optimization",
+          "Quality control and inspection",
+          "Predictive maintenance",
+          "Financial trading",
+          "Risk management",
+          "Research and development",
+          "Other"
+        ]
+      },
+      {
+        "id": "ai-high-risk-applications",
+        "text": "Do any of your AI systems fall into these high-risk categories? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Biometric identification of natural persons",
+          "Management and operation of critical infrastructure",
+          "Education and vocational training (determining access or assigning persons)",
+          "Employment, workers management and access to self-employment",
+          "Access to and enjoyment of essential private/public services and benefits",
+          "Law enforcement (predicting crimes, polygraphs, assessing evidence reliability)",
+          "Migration, asylum and border control management",
+          "Administration of justice and democratic processes",
+          "Safety components of products under EU harmonisation legislation",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "ai-prohibited-practices",
+        "text": "Do you use AI for any of these practices? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Subliminal techniques to materially distort behavior",
+          "Exploiting vulnerabilities of specific groups (age, disability, social situation)",
+          "Social scoring for general purposes by public authorities",
+          "Real-time remote biometric identification in public spaces for law enforcement",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "ai-transparency-obligations",
+        "text": "Do you use AI systems that interact directly with humans? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Chatbots or conversational AI",
+          "Emotion recognition systems",
+          "Biometric categorization systems",
+          "AI systems generating or manipulating image, audio, or video content (deepfakes)",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "ai-development-role",
+        "text": "What is your role in the AI value chain?",
+        "type": "multi-select",
+        "options": [
+          "AI system provider (develop AI systems)",
+          "AI system deployer (use AI systems in your operations)",
+          "Importer of AI systems",
+          "Distributor of AI systems",
+          "Product manufacturer integrating AI systems",
+          "Authorized representative for non-EU AI providers",
+          "Only end user of AI systems",
+          "None of the above"
+        ]
+      }
+    ]
+  },
+  {
+    "section": "Digital Services & Platforms",
+    "description": "Assessment of digital platform operations and online services",
+    "questions": [
+      {
+        "id": "digital-platform-operation",
+        "text": "Do you operate any digital platforms or online services?",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "id": "platform-types",
+        "text": "What types of digital platforms or services do you operate? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Online marketplace (connecting consumers and traders)",
+          "Social networking platform",
+          "Content sharing platform (video, image, audio)",
+          "App store or software distribution platform",
+          "Online search engine",
+          "Cloud computing services",
+          "Web hosting services",
+          "Content delivery network (CDN)",
+          "Domain name system (DNS) services",
+          "Online advertising platform",
+          "Dating platform",
+          "Travel and accommodation platform",
+          "Collaborative economy platform (ride-sharing, etc.)",
+          "Online gaming platform",
+          "E-learning platform",
+          "Professional networking platform",
+          "Review and rating platform",
+          "Cryptocurrency exchange",
+          "Other online platform",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "platform-users-eu",
+        "text": "Approximately how many active users do you have in the EU per month?",
+        "type": "select",
+        "options": ["Less than 1,000", "1,000-10,000", "10,000-100,000", "100,000-1,000,000", "1,000,000-45,000,000", "More than 45,000,000", "Not applicable"]
+      },
+      {
+        "id": "platform-business-users",
+        "text": "How many business users (traders, sellers, service providers) use your platform in the EU?",
+        "type": "select",
+        "options": ["None", "1-100", "100-1,000", "1,000-10,000", "More than 10,000"]
+      },
+      {
+        "id": "content-moderation",
+        "text": "Do you moderate content on your platform?",
+        "type": "boolean"
+      },
+      {
+        "id": "content-types",
+        "text": "What types of content do users share on your platform? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Text posts and comments",
+          "Images and photos",
+          "Videos",
+          "Audio content",
+          "Live streaming",
+          "User-generated reviews",
+          "Product listings",
+          "Service offerings",
+          "Educational content",
+          "News and information",
+          "Entertainment content",
+          "Personal messages/communications",
+          "Business communications",
+          "Other",
+          "No user-generated content"
+        ]
+      },
+      {
+        "id": "algorithmic-systems",
+        "text": "Do you use algorithmic recommendation systems on your platform?",
+        "type": "boolean",
+        "help": "This includes algorithms that determine what content users see, product recommendations, search rankings, etc."
+      },
+      {
+        "id": "advertising-services",
+        "text": "Do you provide online advertising services?",
+        "type": "boolean"
+      },
+      {
+        "id": "gatekeeper-services",
+        "text": "Do you provide any of these core platform services? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Search engines",
+          "Social networking services",
+          "Video sharing platform services", 
+          "Interpersonal communications services",
+          "Operating systems",
+          "Web browsers",
+          "Cloud computing services",
+          "Online advertising services",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "platform-turnover",
+        "text": "What was your annual turnover from digital platform services in the EU? (in EUR)",
+        "type": "currency"
+      }
+    ]
+  },
+  {
+    "section": "Financial Services & Payments",
+    "description": "Comprehensive assessment of financial and payment services",
+    "questions": [
+      {
+        "id": "financial-services",
+        "text": "Do you provide any financial services?",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "id": "financial-service-types",
+        "text": "What types of financial services do you provide? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Banking services (deposit taking, lending)",
+          "Investment services (brokerage, asset management)",
+          "Insurance services",
+          "Payment services",
+          "Money transfer services",
+          "Currency exchange services",
+          "Credit services (lending, financing)",
+          "Investment advice",
+          "Financial planning services",
+          "Pension services",
+          "Crowdfunding services",
+          "Peer-to-peer lending",
+          "Digital wallet services",
+          "Cryptocurrency services",
+          "Robo-advisory services",
+          "Credit rating services",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "payment-services",
+        "text": "Do you provide payment services to EU customers or merchants?",
+        "type": "boolean"
+      },
+      {
+        "id": "payment-service-types",
+        "text": "What types of payment services do you offer? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Payment processing for merchants",
+          "Online payment gateway",
+          "Mobile payment services",
+          "Contactless payment solutions",
+          "Digital wallet services",
+          "Money transfer services",
+          "Currency conversion services",
+          "Payment initiation services",
+          "Account information services",
+          "E-money services",
+          "Prepaid card services",
+          "Point-of-sale systems",
+          "ATM services",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "crypto-services",
+        "text": "Do you provide any cryptocurrency or digital asset services?",
+        "type": "boolean"
+      },
+      {
+        "id": "crypto-service-types",
+        "text": "What cryptocurrency services do you provide? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Cryptocurrency exchange",
+          "Cryptocurrency wallet services",
+          "Cryptocurrency trading platform",
+          "Initial coin offering (ICO) services",
+          "Cryptocurrency mining",
+          "Stablecoin issuance",
+          "DeFi (decentralized finance) services",
+          "NFT (non-fungible token) marketplace",
+          "Cryptocurrency payment processing",
+          "Custody services for digital assets",
+          "Cryptocurrency lending/borrowing",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "regulated-financial-entity",
+        "text": "Are you a regulated financial institution?",
+        "type": "boolean",
+        "help": "This includes banks, insurance companies, investment firms licensed in any jurisdiction"
+      },
+      {
+        "id": "financial-licenses",
+        "text": "What financial licenses do you hold? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Banking license",
+          "Investment firm authorization",
+          "Insurance license",
+          "Payment institution license",
+          "E-money institution license",
+          "AIFM (Alternative Investment Fund Manager) license",
+          "UCITS management company authorization",
+          "Insurance intermediary license",
+          "Cryptocurrency/digital asset license",
+          "None of the above"
+        ]
+      }
+    ]
+  },
+  {
+    "section": "Products & Manufacturing",
+    "description": "Detailed assessment of product manufacturing and distribution",
+    "questions": [
+      {
+        "id": "product-manufacturing",
+        "text": "Do you manufacture, import, or distribute physical products?",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "id": "product-categories",
+        "text": "What types of products do you manufacture, import, or distribute? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Electronics and electrical equipment",
+          "Medical devices",
+          "Machinery and equipment",
+          "Automotive products and components",
+          "Toys and children's products",
+          "Personal protective equipment (PPE)",
+          "Construction products",
+          "Chemicals and chemical products",
+          "Cosmetics and personal care products",
+          "Food and beverage products",
+          "Textiles and clothing",
+          "Furniture and home goods",
+          "Sports and recreational equipment",
+          "Batteries and battery-containing products",
+          "Packaging materials",
+          "Software/digital products",
+          "IoT and connected devices",
+          "Telecommunications equipment",
+          "Energy equipment (solar panels, wind turbines, etc.)",
+          "Transportation vehicles",
+          "Agricultural products and equipment",
+          "Other"
+        ]
+      },
+      {
+        "id": "ce-marking-products",
+        "text": "Do any of your products require CE marking for the EU market?",
+        "type": "boolean",
+        "help": "CE marking is required for many products to demonstrate conformity with EU safety, health, and environmental requirements"
+      },
+      {
+        "id": "product-safety-directives",
+        "text": "Which EU product safety directives apply to your products? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Low Voltage Directive (electrical equipment)",
+          "Electromagnetic Compatibility (EMC) Directive",
+          "Radio Equipment Directive (RED)",
+          "Machinery Directive",
+          "Medical Device Regulation (MDR)",
+          "Toy Safety Directive",
+          "Personal Protective Equipment (PPE) Regulation",
+          "Construction Products Regulation",
+          "ATEX Directive (explosive atmospheres)",
+          "Pressure Equipment Directive",
+          "Gas Appliances Regulation",
+          "Outdoor Noise Directive",
+          "Ecodesign Directive",
+          "Energy Labelling Regulation",
+          "RoHS Directive (hazardous substances)",
+          "WEEE Directive (electronic waste)",
+          "None of the above",
+          "Not sure"
+        ]
+      },
+      {
+        "id": "connected-products",
+        "text": "Do you manufacture or distribute connected/IoT products with digital elements?",
+        "type": "boolean",
+        "help": "This includes products with software, internet connectivity, or digital features"
+      },
+      {
+        "id": "chemical-substances",
+        "text": "Do you manufacture, import, or use chemical substances?",
+        "type": "boolean"
+      },
+      {
+        "id": "chemical-activities",
+        "text": "What chemical-related activities do you engage in? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Manufacturing chemical substances",
+          "Importing chemical substances from outside EU",
+          "Distributing chemicals to other companies",
+          "Using chemicals in manufacturing processes",
+          "Formulating chemical mixtures",
+          "Repackaging chemicals",
+          "Selling chemicals to consumers",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "battery-products",
+        "text": "Do you manufacture, import, or sell batteries or products containing batteries?",
+        "type": "boolean"
+      },
+      {
+        "id": "packaging-waste",
+        "text": "Do you place packaged products or packaging materials on the EU market?",
+        "type": "boolean"
+      },
+      {
+        "id": "product-sustainability",
+        "text": "Are any of your products subject to sustainability or circular economy requirements?",
+        "type": "multi-select",
+        "options": [
+          "Ecodesign requirements",
+          "Energy efficiency labeling",
+          "Single-use plastics restrictions",
+          "Right to repair obligations",
+          "Digital product passport requirements",
+          "Extended producer responsibility",
+          "None of the above"
+        ]
+      }
+    ]
+  },
+  {
+    "section": "Environmental Impact & Sustainability",
+    "description": "Comprehensive environmental and sustainability assessment",
+    "questions": [
+      {
+        "id": "environmental-impact",
+        "text": "Does your company have significant environmental impacts?",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "id": "emissions-activities",
+        "text": "Which activities contribute to your greenhouse gas emissions? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Manufacturing and production processes",
+          "Energy consumption (electricity, heating)",
+          "Transportation and logistics",
+          "Business travel",
+          "Employee commuting",
+          "Data centers and IT infrastructure",
+          "Supply chain activities",
+          "Waste generation and disposal",
+          "Land use and forestry activities",
+          "Construction and real estate",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "carbon-emissions-scope",
+        "text": "Do you measure and report your carbon emissions?",
+        "type": "select",
+        "options": [
+          "Yes, Scope 1, 2, and 3 emissions",
+          "Yes, Scope 1 and 2 emissions only", 
+          "Yes, basic carbon footprint only",
+          "No, but planning to",
+          "No, not applicable to our business"
+        ]
+      },
+      {
+        "id": "annual-emissions",
+        "text": "What are your approximate annual CO2 emissions? (tonnes CO2 equivalent)",
+        "type": "select",
+        "options": ["Less than 100", "100-1,000", "1,000-10,000", "10,000-25,000", "More than 25,000", "Don't know"]
+      },
+      {
+        "id": "eu-ets-covered",
+        "text": "Are any of your installations covered by the EU Emissions Trading System (EU ETS)?",
+        "type": "boolean",
+        "help": "This applies to large industrial installations with significant CO2 emissions"
+      },
+      {
+        "id": "cbam-imports",
+        "text": "Do you import any of these carbon-intensive goods into the EU?",
+        "type": "multi-select",
+        "options": [
+          "Iron and steel",
+          "Cement",
+          "Fertilizers",
+          "Aluminum",
+          "Electricity",
+          "Hydrogen",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "waste-management",
+        "text": "What types of waste does your company generate? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Hazardous waste",
+          "Electronic waste (WEEE)",
+          "Chemical waste",
+          "Medical waste",
+          "Radioactive waste",
+          "Packaging waste",
+          "Food waste",
+          "Construction and demolition waste",
+          "Textile waste",
+          "Plastic waste",
+          "General commercial waste",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "waste-shipment",
+        "text": "Do you ship waste across international borders?",
+        "type": "boolean"
+      },
+      {
+        "id": "environmental-permits",
+        "text": "Do you hold any environmental permits or licenses? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Industrial emissions permit",
+          "Water discharge permit",
+          "Waste management license",
+          "Environmental impact assessment",
+          "Seveso Directive permit (major accident hazards)",
+          "Nature protection permits",
+          "Air quality permits",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "sustainability-reporting",
+        "text": "Do you currently publish any sustainability reports?",
+        "type": "boolean"
+      },
+      {
+        "id": "sustainability-standards",
+        "text": "Which sustainability standards or frameworks do you follow? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Global Reporting Initiative (GRI)",
+          "Sustainability Accounting Standards Board (SASB)",
+          "Task Force on Climate-related Financial Disclosures (TCFD)",
+          "UN Global Compact",
+          "Carbon Disclosure Project (CDP)",
+          "Science Based Targets initiative (SBTi)",
+          "EU Taxonomy for sustainable activities",
+          "ISO 14001 (Environmental management)",
+          "ISO 50001 (Energy management)",
+          "B Corp certification",
+          "None of the above"
+        ]
+      }
+    ]
+  },
+  {
+    "section": "Employment & Human Resources",
+    "description": "Detailed employment practices and HR policies assessment",
+    "questions": [
+      {
+        "id": "employment-practices",
+        "text": "Which employment practices does your company engage in? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Direct employment of workers",
+          "Posting workers to other EU countries",
+          "Using temporary agency workers",
+          "Engaging independent contractors/freelancers",
+          "Hiring remote workers across borders",
+          "Student internships and apprenticeships",
+          "Seasonal employment",
+          "Shift work or night work",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "cross-border-workers",
+        "text": "Do you post or send employees to work in other EU countries?",
+        "type": "boolean"
+      },
+      {
+        "id": "worker-monitoring",
+        "text": "Do you use any systems to monitor or manage workers? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Time tracking and attendance systems",
+          "Performance monitoring software",
+          "Location tracking for mobile workers",
+          "Email and communication monitoring",
+          "Video surveillance in the workplace",
+          "Algorithmic management systems",
+          "AI-powered performance evaluation",
+          "Automated scheduling systems",
+          "Productivity monitoring tools",
+          "Health and safety monitoring systems",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "recruitment-practices",
+        "text": "What recruitment and hiring practices do you use? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Online job postings and applications",
+          "AI-powered resume screening",
+          "Automated interview scheduling",
+          "Video interview platforms",
+          "Skills and aptitude testing",
+          "Background checks",
+          "Social media screening",
+          "Personality or psychological testing",
+          "Algorithmic candidate ranking",
+          "Diversity and inclusion programs",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "whistleblower-procedures",
+        "text": "Do you have 50 or more employees in any single EU member state?",
+        "type": "boolean",
+        "help": "This threshold determines whistleblower protection obligations"
+      },
+      {
+        "id": "worker-rights",
+        "text": "Which worker rights and benefits do you provide? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Collective bargaining agreements",
+          "Trade union recognition",
+          "Employee representative bodies",
+          "Flexible working arrangements",
+          "Professional development and training",
+          "Health and safety programs",
+          "Mental health and wellness support",
+          "Parental leave policies",
+          "Non-discrimination policies",
+          "Grievance and complaint procedures",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "workforce-demographics",
+        "text": "What is the demographic composition of your workforce? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Employees from multiple EU countries",
+          "Third-country nationals",
+          "Young workers (under 18)",
+          "Senior workers (over 55)",
+          "Workers with disabilities",
+          "Predominantly male workforce",
+          "Predominantly female workforce",
+          "Balanced gender representation",
+          "Diverse ethnic and cultural backgrounds",
+          "None of the above"
+        ]
+      }
+    ]
+  },
+  {
+    "section": "Consumer Protection & Commerce",
+    "description": "Assessment of consumer-facing business activities",
+    "questions": [
+      {
+        "id": "consumer-sales",
+        "text": "Do you sell products or services directly to consumers (B2C)?",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "id": "consumer-sales-channels",
+        "text": "Through which channels do you sell to consumers? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Physical retail stores",
+          "Company website/e-commerce",
+          "Online marketplaces (Amazon, eBay, etc.)",
+          "Mobile apps",
+          "Social media platforms",
+          "Telephone sales",
+          "Door-to-door sales",
+          "Mail order/catalog sales",
+          "Pop-up shops or temporary locations",
+          "Trade shows and exhibitions",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "consumer-products-services",
+        "text": "What do you sell to consumers? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Physical products",
+          "Digital products/software",
+          "Subscription services",
+          "Professional services",
+          "Travel and accommodation",
+          "Financial products",
+          "Insurance products",
+          "Educational services",
+          "Healthcare services",
+          "Entertainment and media content",
+          "Food and beverage",
+          "Utilities (energy, water, telecommunications)",
+          "Other"
+        ]
+      },
+      {
+        "id": "cross-border-sales",
+        "text": "Do you sell to consumers in multiple EU countries?",
+        "type": "boolean"
+      },
+      {
+        "id": "pricing-practices",
+        "text": "Which pricing and commercial practices do you use? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Dynamic pricing based on demand",
+          "Personalized pricing based on customer data",
+          "Geographic price discrimination",
+          "Subscription or recurring billing",
+          "Free trials with automatic renewal",
+          "Bundle offers and packages",
+          "Loyalty programs and rewards",
+          "Discount codes and promotions",
+          "Flash sales and limited-time offers",
+          "Comparison with competitors' prices",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "geo-blocking",
+        "text": "Do you restrict access to your products/services based on customer location?",
+        "type": "boolean"
+      },
+      {
+        "id": "distance-sales",
+        "text": "Do you engage in distance selling (online, phone, mail order)?",
+        "type": "boolean"
+      },
+      {
+        "id": "consumer-contracts",
+        "text": "What types of consumer contracts do you use? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "One-time purchase agreements",
+          "Subscription contracts",
+          "Service agreements",
+          "Rental or lease agreements",
+          "Financing or credit agreements",
+          "Insurance contracts",
+          "Terms of service for digital platforms",
+          "Privacy policies and data processing agreements",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "vulnerable-consumers",
+        "text": "Do you target or serve vulnerable consumer groups? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Children and minors",
+          "Elderly consumers",
+          "Consumers with disabilities",
+          "Low-income consumers",
+          "Consumers with limited digital literacy",
+          "Consumers with limited language proficiency",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "consumer-complaints",
+        "text": "Do you have procedures for handling consumer complaints and disputes?",
+        "type": "boolean"
+      }
+    ]
+  },
+  {
+    "section": "Cybersecurity & Digital Infrastructure",
+    "description": "Assessment of cybersecurity measures and digital infrastructure operations",
+    "questions": [
+      {
+        "id": "critical-infrastructure",
+        "text": "Do you operate any critical infrastructure in the EU?",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "id": "essential-services",
+        "text": "Do you provide any essential services? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Electricity generation, transmission, or distribution",
+          "Gas production, transmission, or distribution",
+          "Oil refining, storage, or transmission",
+          "Water supply or distribution",
+          "Wastewater management",
+          "Healthcare services",
+          "Banking and financial market infrastructures",
+          "Digital infrastructure (internet exchange points, DNS, TLD registries)",
+          "Transport services (aviation, maritime, rail, road)",
+          "Postal and courier services",
+          "Waste management",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "digital-services",
+        "text": "Do you provide any of these digital services? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Cloud computing services",
+          "Data center services",
+          "Content delivery networks (CDN)",
+          "Domain name system (DNS) services",
+          "Internet service provision",
+          "Web hosting services",
+          "Online search engines",
+          "Social networking platforms",
+          "Trust services (digital signatures, certificates)",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "cybersecurity-measures",
+        "text": "What cybersecurity measures do you have in place? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Risk management and assessment procedures",
+          "Incident response and recovery plans",
+          "Business continuity and disaster recovery",
+          "Supply chain security measures",
+          "Regular security audits and assessments",
+          "Employee cybersecurity training",
+          "Multi-factor authentication",
+          "Encryption of data at rest and in transit",
+          "Network monitoring and intrusion detection",
+          "Regular software updates and patch management",
+          "Backup and recovery systems",
+          "Third-party security certifications (ISO 27001, SOC 2, etc.)",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "security-incidents",
+        "text": "Have you experienced any significant cybersecurity incidents in the past year?",
+        "type": "boolean"
+      },
+      {
+        "id": "incident-reporting",
+        "text": "Do you have procedures for reporting cybersecurity incidents to authorities?",
+        "type": "boolean"
+      },
+      {
+        "id": "supply-chain-risk",
+        "text": "Do you assess cybersecurity risks in your supply chain?",
+        "type": "boolean"
+      }
+    ]
+  },
+  {
+    "section": "International Trade & Supply Chain",
+    "description": "Assessment of import/export activities and supply chain operations",
+    "questions": [
+      {
+        "id": "international-trade",
+        "text": "Does your company engage in international trade?",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "id": "import-activities",
+        "text": "What do you import into the EU? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Raw materials and commodities",
+          "Manufactured goods",
+          "Electronics and machinery",
+          "Textiles and clothing",
+          "Food and agricultural products",
+          "Chemicals and chemical products",
+          "Energy products (oil, gas, coal)",
+          "Metals and metal products",
+          "Automotive parts and vehicles",
+          "Medical devices and pharmaceuticals",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "export-activities", 
+        "text": "What do you export from the EU? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Manufactured goods",
+          "Technology and software",
+          "Professional services",
+          "Agricultural products",
+          "Industrial equipment",
+          "Consumer goods",
+          "Automotive products",
+          "Chemicals and pharmaceuticals",
+          "Energy products",
+          "Financial services",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "trade-volume",
+        "text": "What is your approximate annual value of imports/exports? (in EUR)",
+        "type": "select",
+        "options": ["Less than €100,000", "€100,000-€1 million", "€1-10 million", "€10-100 million", "More than €100 million", "Not applicable"]
+      },
+      {
+        "id": "supply-chain-countries",
+        "text": "From which regions do you source materials or products? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Other EU/EEA countries",
+          "United Kingdom",
+          "United States",
+          "Canada",
+          "China",
+          "India",
+          "Southeast Asia",
+          "Latin America", 
+          "Africa",
+          "Middle East",
+          "Russia/Former Soviet Union",
+          "Australia/Oceania",
+          "Other"
+        ]
+      },
+      {
+        "id": "customs-procedures",
+        "text": "Are you involved in any special customs procedures? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Authorized Economic Operator (AEO) status",
+          "Customs warehousing",
+          "Inward processing",
+          "Outward processing",
+          "Temporary admission",
+          "Free zones or free warehouses",
+          "None of the above"
+        ]
+      },
+      {
+        "id": "trade-agreements",
+        "text": "Do you benefit from any preferential trade agreements or tariff reductions?",
+        "type": "boolean"
+      },
+      {
+        "id": "supply-chain-due-diligence",
+        "text": "Do you conduct due diligence on your supply chain for any of these issues? (Select all that apply)",
+        "type": "multi-select",
+        "options": [
+          "Human rights violations",
+          "Child labor",
+          "Forced labor",
+          "Environmental impacts",
+          "Conflict minerals",
+          "Deforestation",
+          "Corruption and bribery",
+          "Labor rights and working conditions",
+          "None of the above"
+        ]
+      }
+    ]
+  }
+]

@@ -4,6 +4,7 @@
   padding: 2rem;
   position: relative;
   overflow: hidden;
+  scroll-behavior: smooth; /* Smooth scrolling instead of jumps */
 }
 
 .assessment-wrap::before {
@@ -40,6 +41,7 @@
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  min-height: 60vh; /* Prevent container height changes */
   overflow: hidden;
   position: relative;
   z-index: 1;
@@ -215,6 +217,7 @@
   font-family: 'Inter', sans-serif;
   background: #ffffff;
   color: #1f2937;
+  box-sizing: border-box; /* Prevent layout shifts */
 }
 
 .number-input:focus,
@@ -237,6 +240,7 @@
   transition: all 0.2s ease;
   background: #ffffff;
   color: #1f2937;
+  box-sizing: border-box; /* Prevent layout shifts */
 }
 
 .multi-input:focus {
@@ -244,6 +248,338 @@
   border-color: #f85a2b;
   box-shadow: 0 0 0 3px rgba(248, 90, 43, 0.1);
   background: #ffffff;
+}
+
+/* New Input Types for Comprehensive Assessment */
+.input-wrapper {
+  width: 100%;
+}
+
+.input-help {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #64748b;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.section-description {
+  margin-bottom: 2rem;
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.required-indicator {
+  color: #ef4444;
+  font-weight: bold;
+}
+
+/* Select Dropdown */
+.select-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background: #ffffff;
+  color: #1f2937;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 400px;
+  cursor: pointer;
+}
+
+.select-input:focus {
+  outline: none;
+  border-color: #f85a2b;
+  box-shadow: 0 0 0 3px rgba(248, 90, 43, 0.1);
+}
+
+/* Multi-Select Checkboxes */
+.multi-select-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.checkbox-option:hover {
+  background-color: #f8fafc;
+}
+
+.checkbox-option input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin-right: 0.5rem;
+  accent-color: #f85a2b;
+  cursor: pointer;
+}
+
+.checkbox-option span {
+  font-size: 0.9rem;
+  color: #374151;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+/* Processing Screen Styles */
+.processing-section {
+  text-align: center;
+  padding: 3rem 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.processing-animation {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.processing-spinner {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+}
+
+.spinner-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 3px solid transparent;
+  border-top: 3px solid #f85a2b;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+.spinner-ring:nth-child(2) {
+  width: 90px;
+  height: 90px;
+  top: 15px;
+  left: 15px;
+  border-top-color: #ff7849;
+  animation-delay: -0.5s;
+  animation-duration: 1.5s;
+}
+
+.spinner-ring:nth-child(3) {
+  width: 60px;
+  height: 60px;
+  top: 30px;
+  left: 30px;
+  border-top-color: #ff9666;
+  animation-delay: -1s;
+  animation-duration: 1s;
+}
+
+.processing-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+.processing-section h1 {
+  margin: 0 0 1rem 0;
+  font-size: 2.2rem;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.processing-description {
+  color: #64748b;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+}
+
+.processing-steps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.step.active {
+  background: #fef7f0;
+  border-color: #f85a2b;
+  color: #f85a2b;
+}
+
+.step-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e2e8f0;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.step.active .step-icon {
+  background: #f85a2b;
+  color: white;
+}
+
+.mini-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.step span {
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.processing-info {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.processing-info p {
+  margin: 0 0 1rem 0;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.confidence-indicator {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.confidence-indicator span {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.9rem;
+}
+
+.confidence-bar {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.confidence-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f85a2b 0%, #ff7849 100%);
+  width: 0%;
+  animation: fillConfidence 3s ease-out forwards;
+}
+
+@keyframes fillConfidence {
+  0% { width: 0%; }
+  100% { width: 95%; }
+}
+
+/* Responsive Design for New Elements */
+@media (max-width: 768px) {
+  .multi-select-group {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .select-input {
+    max-width: 100%;
+  }
+  
+  .input-help {
+    font-size: 0.8rem;
+  }
+
+  .processing-section {
+    padding: 2rem 1rem;
+  }
+
+  .processing-section h1 {
+    font-size: 1.8rem;
+  }
+
+  .processing-steps {
+    gap: 0.5rem;
+  }
+
+  .step {
+    min-width: 80px;
+    padding: 0.75rem;
+  }
+
+  .step span {
+    font-size: 0.75rem;
+  }
+
+  .processing-spinner {
+    width: 80px;
+    height: 80px;
+  }
+
+  .spinner-ring:nth-child(2) {
+    width: 60px;
+    height: 60px;
+    top: 10px;
+    left: 10px;
+  }
+
+  .spinner-ring:nth-child(3) {
+    width: 40px;
+    height: 40px;
+    top: 20px;
+    left: 20px;
+  }
+
+  .processing-icon {
+    font-size: 1.8rem;
+  }
 }
 
 /* Navigation */
