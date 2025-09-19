@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { BsCalendar, BsShield } from "react-icons/bs";
+import { BsShield } from "react-icons/bs";
 import {
   FaChartLine,
   FaIndustry,
@@ -19,7 +19,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 
@@ -303,89 +302,33 @@ const DashboardHome = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-emerald-50/30 p-6">
       <div className="max-w-7xl mx-auto space-y-8">
-        {/* Enhanced Header */}
-        <div className="relative">
-          {/* Subtle background decoration */}
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 via-emerald-400/5 to-emerald-300/5 rounded-2xl"></div>
-          <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-100/20 rounded-full blur-3xl -translate-y-32 translate-x-32"></div>
-
-          <div className="relative bg-white/70 backdrop-blur-sm border border-white/50 rounded-2xl p-8 shadow-lg">
+        {/* Clean Professional Header */}
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm">
+          <div className="px-8 py-6">
             <div className="flex items-center justify-between">
-              <div className="space-y-2">
-                <div className="flex items-center gap-3">
-                  <div className="h-3 w-3 bg-emerald-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-emerald-600 uppercase tracking-wider">
-                    CSRD Dashboard
-                  </span>
-                </div>
-                <h1 className="text-3xl font-bold text-gray-900 leading-tight">
-                  Hello, {getFirstName()} 👋
-                </h1>
-                <p className="text-lg text-gray-600 font-medium">
-                  Welcome back to your compliance center
-                </p>
-                <div className="flex items-center gap-4 pt-2">
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <div className="h-2 w-2 bg-emerald-400 rounded-full"></div>
-                    <span>Last updated: Today</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <div className="h-2 w-2 bg-blue-400 rounded-full"></div>
-                    <span>
-                      Next deadline: {dashboardData?.stats.nextDeadline}
-                    </span>
-                  </div>
-                </div>
+              <div>
+                <h1 className="text-2xl font-semibold text-gray-900">CSRD Dashboard</h1>
+                <p className="text-sm text-gray-500 mt-1">Hello {getFirstName()}, welcome back to your compliance center</p>
               </div>
 
-              <div className="flex items-center gap-6">
-                {/* Date Card */}
-                <div className="bg-white/80 backdrop-blur-sm border border-emerald-100 rounded-xl p-4 shadow-sm">
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 bg-emerald-100 rounded-lg flex items-center justify-center">
-                      <BsCalendar className="h-5 w-5 text-emerald-600" />
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                        Today
-                      </p>
-                      <p className="text-sm font-bold text-gray-900">
-                        {formattedDate}
-                      </p>
-                    </div>
-                  </div>
+              <div className="flex items-center space-x-6">
+                <div className="text-right">
+                  <p className="text-sm text-gray-500">Last updated</p>
+                  <p className="text-sm font-medium text-gray-900">{formattedDate}</p>
                 </div>
 
-                {/* Profile Section */}
-                <div className="flex items-center gap-4">
-                  <div className="text-right">
-                    <p className="text-sm font-medium text-gray-600">
-                      Compliance Score
-                    </p>
-                    <div className="flex items-center gap-2">
-                      <div className="flex-1 bg-gray-200 rounded-full h-2">
-                        <div
-                          className="bg-emerald-500 h-2 rounded-full transition-all duration-300"
-                          style={{
-                            width: `${dashboardData?.stats.complianceScore}%`,
-                          }}
-                        ></div>
-                      </div>
-                      <span className="text-lg font-bold text-emerald-600">
-                        {dashboardData?.stats.complianceScore}%
-                      </span>
-                    </div>
-                  </div>
-                  <div className="relative">
-                    <Avatar className="h-14 w-14 ring-4 ring-emerald-100 ring-offset-2 ring-offset-white shadow-lg">
-                      <AvatarImage src={user?.avatar} />
-                      <AvatarFallback className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white font-bold text-lg">
-                        {getInitials()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="absolute -bottom-1 -right-1 h-5 w-5 bg-emerald-500 rounded-full border-2 border-white flex items-center justify-center">
-                      <div className="h-2 w-2 bg-white rounded-full"></div>
-                    </div>
+                <div className="h-8 w-px bg-gray-200"></div>
+
+                <div className="flex items-center space-x-3">
+                  <Avatar className="h-10 w-10">
+                    <AvatarImage src={user?.avatar} />
+                    <AvatarFallback className="bg-gray-100 text-gray-700 font-medium">
+                      {getInitials()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">{getFirstName()}</p>
+                    <p className="text-xs text-gray-500">Administrator</p>
                   </div>
                 </div>
               </div>
@@ -644,35 +587,6 @@ const DashboardHome = () => {
           </Card>
         </div>
 
-        {/* Progress Overview */}
-        <Card>
-          <CardHeader>
-            <CardTitle>ESRS Standards Progress</CardTitle>
-            <CardDescription>
-              Track your compliance across environmental standards
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {dashboardData?.esrsBreakdown?.map((item, index) => (
-              <div key={index} className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm font-mono bg-emerald-100 text-emerald-700 px-2 py-1 rounded">
-                      {item.standard}
-                    </span>
-                    <span className="font-medium text-gray-900">
-                      {item.name}
-                    </span>
-                  </div>
-                  <span className="text-sm font-medium text-gray-600">
-                    {item.progress}%
-                  </span>
-                </div>
-                <Progress value={item.progress} className="h-2" />
-              </div>
-            ))}
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
