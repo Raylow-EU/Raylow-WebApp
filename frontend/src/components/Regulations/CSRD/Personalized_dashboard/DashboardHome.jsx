@@ -497,71 +497,83 @@ const DashboardHome = () => {
           </Card>
         </div>
 
-        {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card className="p-6 bg-white border border-gray-200 shadow-sm">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Emissions by Scope
-            </h3>
-            <div className="space-y-3">
-              {dashboardData?.emissionsByScope?.map((item, index) => (
-                <div key={index} className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`h-3 w-3 rounded-full ${
-                        index === 0
-                          ? "bg-emerald-500"
-                          : index === 1
-                          ? "bg-emerald-400"
-                          : "bg-emerald-300"
-                      }`}
-                    ></div>
-                    <span className="text-sm font-medium text-gray-700">
-                      {item.name}
-                    </span>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-sm font-bold text-gray-900">
-                      {item.value.toLocaleString()} tCO₂e
-                    </span>
-                    <span className="text-xs text-gray-500 ml-2">
-                      ({item.percentage}%)
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Card>
 
-          <Card className="p-6 bg-white border border-gray-200 shadow-sm">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Monthly Progress
-            </h3>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-600">This Month</span>
-                <span className="font-semibold text-emerald-600">130 tCO₂e</span>
-              </div>
-              <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-600">Target</span>
-                <span className="font-semibold text-gray-900">140 tCO₂e</span>
-              </div>
-              <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-600">Reduction</span>
-                <span className="font-semibold text-emerald-600">-7.1%</span>
-              </div>
-              <div className="pt-2">
-                <div className="flex items-center justify-between text-xs mb-2">
-                  <span className="text-gray-500">Progress to target</span>
-                  <span className="text-emerald-600 font-medium">107%</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-emerald-500 h-2 rounded-full w-full"></div>
-                </div>
-              </div>
+        {/* Interactive Emissions Chart */}
+        <Card className="py-4 sm:py-0 border-gray-200/50">
+          <CardHeader className="flex flex-col items-stretch border-b border-gray-200 !p-0 sm:flex-row">
+            <div className="flex flex-1 flex-col justify-center gap-1 px-6 pb-3 sm:pb-0">
+              <CardTitle className="text-gray-700 font-medium">Emissions Tracking</CardTitle>
+              <CardDescription className="text-gray-500">Monthly emissions data by scope for the last 3 months</CardDescription>
             </div>
-          </Card>
-        </div>
+            <div className="flex">
+              {["desktop", "mobile"].map((key) => {
+                const chart = key;
+                return (
+                  <button
+                    key={chart}
+                    data-active={activeChart === chart}
+                    className="data-[active=true]:bg-gray-50/50 flex flex-1 flex-col justify-center gap-1 border-t border-gray-200 px-6 py-4 text-left even:border-l even:border-gray-200 sm:border-t-0 sm:border-l sm:border-gray-200 sm:px-8 sm:py-6"
+                    onClick={() => setActiveChart(chart)}
+                  >
+                    <span className="text-gray-500 text-xs font-medium">{testChartConfig[chart].label}</span>
+                    <span className="text-lg leading-none font-bold sm:text-3xl text-gray-900">
+                      {total[key].toLocaleString()}<span className="text-sm font-normal text-gray-500 ml-1">tCO₂e</span>
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </CardHeader>
+          <CardContent className="px-2 sm:p-6">
+            <div className="aspect-auto h-[250px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  data={chartData}
+                  margin={{
+                    left: 12,
+                    right: 12,
+                  }}
+                >
+                  <CartesianGrid vertical={false} />
+                  <XAxis
+                    dataKey="date"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                    minTickGap={32}
+                    tickFormatter={(value) => {
+                      const date = new Date(value);
+                      return date.toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                      });
+                    }}
+                  />
+                  <YAxis hide />
+                  <Tooltip
+                    cursor={{ strokeDasharray: "3 3" }}
+                    labelFormatter={(value) => {
+                      return new Date(value).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      });
+                    }}
+                    formatter={(value, name) => [value, name === activeChart ? (activeChart === 'desktop' ? 'Scope 1' : 'Scope 2') : name]}
+                  />
+                  <Line
+                    dataKey={activeChart}
+                    type="monotone"
+                    stroke="#10b981"
+                    strokeWidth={2}
+                    dot={false}
+                    activeDot={{ r: 6, fill: "#10b981", stroke: "#fff", strokeWidth: 2 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -637,83 +649,6 @@ const DashboardHome = () => {
                 <Progress value={item.progress} className="h-2" />
               </div>
             ))}
-          </CardContent>
-        </Card>
-
-        {/* Interactive Chart Test */}
-        <Card className="py-4 sm:py-0 border-gray-200/50">
-          <CardHeader className="flex flex-col items-stretch border-b border-gray-200 !p-0 sm:flex-row">
-            <div className="flex flex-1 flex-col justify-center gap-1 px-6 pb-3 sm:pb-0">
-              <CardTitle className="text-gray-700 font-medium">Emissions Tracking</CardTitle>
-              <CardDescription className="text-gray-500">Monthly emissions data by scope for the last 3 months</CardDescription>
-            </div>
-            <div className="flex">
-              {["desktop", "mobile"].map((key) => {
-                const chart = key;
-                return (
-                  <button
-                    key={chart}
-                    data-active={activeChart === chart}
-                    className="data-[active=true]:bg-gray-50/50 flex flex-1 flex-col justify-center gap-1 border-t border-gray-200 px-6 py-4 text-left even:border-l even:border-gray-200 sm:border-t-0 sm:border-l sm:border-gray-200 sm:px-8 sm:py-6"
-                    onClick={() => setActiveChart(chart)}
-                  >
-                    <span className="text-gray-500 text-xs font-medium">{testChartConfig[chart].label}</span>
-                    <span className="text-lg leading-none font-bold sm:text-3xl text-gray-900">
-                      {total[key].toLocaleString()}<span className="text-sm font-normal text-gray-500 ml-1">tCO₂e</span>
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </CardHeader>
-          <CardContent className="px-2 sm:p-6">
-            <div className="aspect-auto h-[250px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={chartData}
-                  margin={{
-                    left: 12,
-                    right: 12,
-                  }}
-                >
-                  <CartesianGrid vertical={false} />
-                  <XAxis
-                    dataKey="date"
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={8}
-                    minTickGap={32}
-                    tickFormatter={(value) => {
-                      const date = new Date(value);
-                      return date.toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                      });
-                    }}
-                  />
-                  <YAxis hide />
-                  <Tooltip
-                    cursor={{ strokeDasharray: "3 3" }}
-                    labelFormatter={(value) => {
-                      return new Date(value).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      });
-                    }}
-                    formatter={(value, name) => [value, name === activeChart ? (activeChart === 'desktop' ? 'Desktop' : 'Mobile') : name]}
-                  />
-                  <Line
-                    dataKey={activeChart}
-                    type="monotone"
-                    stroke="#10b981"
-                    strokeWidth={2}
-                    dot={false}
-                    activeDot={{ r: 6, fill: "#10b981", stroke: "#fff", strokeWidth: 2 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
           </CardContent>
         </Card>
       </div>
