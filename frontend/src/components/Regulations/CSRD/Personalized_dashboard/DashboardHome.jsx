@@ -8,10 +8,7 @@ import {
   FaEye,
   FaBullseye,
 } from "react-icons/fa";
-import {
-  HiTrendingUp,
-  HiTrendingDown,
-} from "react-icons/hi";
+import { TrendingUp, TrendingDown } from "lucide-react";
 import { MdInsights } from "react-icons/md";
 
 // shadcn/ui components
@@ -396,104 +393,129 @@ const DashboardHome = () => {
           </div>
         </div>
 
-        {/* Key Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <Card className="p-6 bg-white/80 backdrop-blur-sm border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">
-                  Total Emissions
-                </p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {dashboardData?.stats.totalEmissions.toLocaleString()}
-                </p>
-                <p className="text-sm text-gray-500">tCO₂e</p>
+        {/* Enhanced Key Metrics */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+              <CardTitle className="text-sm font-medium text-gray-600">Total Emissions</CardTitle>
+              <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1 px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                  <TrendingDown className="h-3 w-3" />
+                  <span>-{dashboardData?.stats.reductionTarget}%</span>
+                </div>
               </div>
-              <div className="h-12 w-12 bg-emerald-100 rounded-xl flex items-center justify-center shadow-sm">
-                <FaIndustry className="h-6 w-6 text-emerald-600" />
+            </CardHeader>
+            <CardContent className="pt-0">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <div className="text-2xl font-bold text-gray-900 mb-2">
+                    {dashboardData?.stats.totalEmissions.toLocaleString()}
+                  </div>
+                  <div className="flex items-center space-x-1 text-xs text-gray-600 mb-1">
+                    <TrendingDown className="h-3 w-3 text-green-600" />
+                    <span>Trending down</span>
+                  </div>
+                  <p className="text-xs text-gray-500">Annual carbon footprint</p>
+                </div>
+                <div className="ml-4">
+                  <FaIndustry className="h-6 w-6 text-emerald-600" />
+                </div>
               </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm">
-              <HiTrendingDown className="h-4 w-4 text-emerald-600 mr-1" />
-              <span className="text-emerald-600 font-medium">
-                {dashboardData?.stats.reductionTarget}% reduction
-              </span>
-            </div>
+            </CardContent>
           </Card>
 
-          <Card className="p-6 bg-white/80 backdrop-blur-sm border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">
-                  Compliance Score
-                </p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {dashboardData?.stats.complianceScore}%
-                </p>
-                <Progress
-                  value={dashboardData?.stats.complianceScore}
-                  className="w-full h-2 mt-2"
-                />
+          <Card className="bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+              <CardTitle className="text-sm font-medium text-gray-600">Compliance Score</CardTitle>
+              <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1 px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                  <TrendingUp className="h-3 w-3" />
+                  <span>+5.2%</span>
+                </div>
               </div>
-              <div className="h-12 w-12 bg-emerald-100 rounded-xl flex items-center justify-center shadow-sm">
-                <BsShield className="h-6 w-6 text-emerald-600" />
+            </CardHeader>
+            <CardContent className="pt-0">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <div className="text-2xl font-bold text-gray-900 mb-2">
+                    {dashboardData?.stats.complianceScore}%
+                  </div>
+                  <div className="flex items-center space-x-1 text-xs text-gray-600 mb-1">
+                    <TrendingUp className="h-3 w-3 text-green-600" />
+                    <span>Improving</span>
+                  </div>
+                  <p className="text-xs text-gray-500">Overall regulatory alignment</p>
+                </div>
+                <div className="ml-4">
+                  <BsShield className="h-6 w-6 text-emerald-600" />
+                </div>
               </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm">
-              <HiTrendingUp className="h-4 w-4 text-emerald-600 mr-1" />
-              <span className="text-emerald-600 font-medium">
-                +5.2% this quarter
-              </span>
-            </div>
+            </CardContent>
           </Card>
 
-          <Card className="p-6 bg-white/80 backdrop-blur-sm border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">
-                  ESRS Standards
-                </p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {dashboardData?.stats.esrsStandards.completed}/
-                  {dashboardData?.stats.esrsStandards.total}
-                </p>
-                <p className="text-sm text-gray-500">Standards covered</p>
+          <Card className="bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+              <CardTitle className="text-sm font-medium text-gray-600">ESRS Standards</CardTitle>
+              <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1 px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                  <TrendingUp className="h-3 w-3" />
+                  <span>
+                    {Math.round(
+                      (dashboardData?.stats.esrsStandards.completed /
+                        dashboardData?.stats.esrsStandards.total) *
+                        100
+                    )}%
+                  </span>
+                </div>
               </div>
-              <div className="h-12 w-12 bg-emerald-100 rounded-xl flex items-center justify-center shadow-sm">
-                <MdInsights className="h-6 w-6 text-emerald-600" />
+            </CardHeader>
+            <CardContent className="pt-0">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <div className="text-2xl font-bold text-gray-900 mb-2">
+                    {dashboardData?.stats.esrsStandards.completed}/
+                    {dashboardData?.stats.esrsStandards.total}
+                  </div>
+                  <div className="flex items-center space-x-1 text-xs text-gray-600 mb-1">
+                    <TrendingUp className="h-3 w-3 text-green-600" />
+                    <span>On track</span>
+                  </div>
+                  <p className="text-xs text-gray-500">Standards implementation</p>
+                </div>
+                <div className="ml-4">
+                  <MdInsights className="h-6 w-6 text-emerald-600" />
+                </div>
               </div>
-            </div>
-            <div className="mt-4">
-              <span className="text-sm font-medium text-emerald-600">
-                {Math.round(
-                  (dashboardData?.stats.esrsStandards.completed /
-                    dashboardData?.stats.esrsStandards.total) *
-                    100
-                )}
-                % Complete
-              </span>
-            </div>
+            </CardContent>
           </Card>
 
-          <Card className="p-6 bg-white/80 backdrop-blur-sm border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-200">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Risk Score</p>
-                <p className="text-2xl font-bold text-gray-900">
-                  {dashboardData?.stats.riskScore}
-                </p>
-                <p className="text-sm text-gray-500">Low risk</p>
+          <Card className="bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+              <CardTitle className="text-sm font-medium text-gray-600">Risk Score</CardTitle>
+              <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1 px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                  <TrendingDown className="h-3 w-3" />
+                  <span>-12%</span>
+                </div>
               </div>
-              <div className="h-12 w-12 bg-emerald-100 rounded-xl flex items-center justify-center shadow-sm">
-                <FaBullseye className="h-6 w-6 text-emerald-600" />
+            </CardHeader>
+            <CardContent className="pt-0">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <div className="text-2xl font-bold text-gray-900 mb-2">
+                    {dashboardData?.stats.riskScore}
+                  </div>
+                  <div className="flex items-center space-x-1 text-xs text-gray-600 mb-1">
+                    <TrendingDown className="h-3 w-3 text-green-600" />
+                    <span>Low risk</span>
+                  </div>
+                  <p className="text-xs text-gray-500">Below target threshold</p>
+                </div>
+                <div className="ml-4">
+                  <FaBullseye className="h-6 w-6 text-emerald-600" />
+                </div>
               </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm">
-              <HiTrendingDown className="h-4 w-4 text-emerald-600 mr-1" />
-              <span className="text-emerald-600 font-medium">
-                12% below target
-              </span>
-            </div>
+            </CardContent>
           </Card>
         </div>
 
