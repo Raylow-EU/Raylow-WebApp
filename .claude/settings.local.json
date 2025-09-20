@@ -10,7 +10,13 @@
       "Bash(claude mcp:*)",
       "Bash(npm start)",
       "Bash(curl:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(npm install:*)",
+      "Bash(npx:*)",
+      "mcp__shadcn__search_items_in_registries",
+      "mcp__shadcn__get_add_command_for_items",
+      "mcp__shadcn__get_item_examples_from_registries",
+      "mcp__shadcn__view_items_in_registries"
     ],
     "deny": [],
     "ask": []
