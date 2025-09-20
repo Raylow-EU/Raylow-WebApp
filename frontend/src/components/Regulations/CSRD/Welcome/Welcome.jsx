@@ -71,7 +71,7 @@ const WelcomeCSRD = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50/50 to-emerald-50/30 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50/50 to-emerald-50/30 p-6" style={{ margin: '-2rem', width: 'calc(100% + 4rem)', height: '100vh' }}>
       <div className="max-w-7xl mx-auto space-y-8">
 
         {/* Hero Section with Modern Design */}
