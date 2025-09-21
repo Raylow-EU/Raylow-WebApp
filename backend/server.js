@@ -9,6 +9,7 @@ import { supabase } from "./config/supabase.js";
 import onboardingRoutes from "./routes/onboardingRoutes.js";
 import assessmentRoutes from "./routes/assessmentRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
+import settingsRoutes from "./routes/settingsRoutes.js";
 
 dotenv.config();
 
@@ -47,6 +48,7 @@ app.get("/health", (req, res) => {
 app.use("/api/onboarding", onboardingRoutes);
 app.use("/api/assessments", assessmentRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api", settingsRoutes);
 
 // Endpoints now organized in route modules above
 
