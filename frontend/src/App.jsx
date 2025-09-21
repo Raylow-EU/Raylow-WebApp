@@ -14,6 +14,7 @@ import Signup from "./components/Authentication/Signup";
 import BasicOnboardingForm from "./features/onboarding/BasicOnboardingForm";
 import { logoutUserThunk } from "./store/thunks/authThunks";
 import ResumePage from "./components/Resume_Page/ResumePage.jsx";
+import SettingsPage from "./components/Settings/SettingsPage.jsx";
 import RegulationSelector from "./components/Dashboard/RegulationSelector.jsx";
 import WelcomeGDPR from "./components/Regulations/GDPR/Welcome/Welcome.jsx";
 import WelcomeAI from "./components/Regulations/AIAct/Welcome/Welcome.jsx";
@@ -180,7 +181,7 @@ const App = () => {
           {/* Dashboard local pages */}
           <Route path="reports" element={<ResumePage />} />
           <Route path="team" element={<ResumePage />} />
-          <Route path="settings" element={<ResumePage />} />
+          <Route path="settings" element={<SettingsPage />} />
           <Route path="chat" element={<ChatInterface />} />
         </Route>
       </Routes>

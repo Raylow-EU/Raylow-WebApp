@@ -232,3 +232,42 @@ Relationships:
 
 - N:1 to *chat_sessions*.
 - Optional N:1 to *users*.
+
+
+### **10) user_settings (user preferences and settings)**
+
+- Stores user-specific settings and preferences like notifications, privacy options, etc.
+- 1:1 with *users* (each user has exactly one settings record).
+
+```sql
+create table public.user_settings (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.users(id) on delete cascade unique,
+
+  -- Profile settings
+  first_name text,
+  last_name text,
+  company_size text,
+  industry text,
+
+  -- Notification preferences
+  email_updates boolean not null default true,
+  regulation_alerts boolean not null default true,
+  deadline_reminders boolean not null default true,
+  weekly_digest boolean not null default false,
+
+  -- Privacy settings
+  profile_visibility boolean not null default true,
+  data_sharing boolean not null default false,
+  analytics_opt_in boolean not null default true,
+
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+-- Index for fast user lookups
+create index idx_user_settings_user_id on public.user_settings(user_id);
+```
+
+Relationships:
+- 1:1 to *users* via *user_id*.
