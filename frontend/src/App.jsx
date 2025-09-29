@@ -22,6 +22,9 @@ import WelcomeCSRD from "./components/Regulations/CSRD/Welcome/Welcome.jsx";
 import GDPRFlashcards from "./components/Regulations/GDPR/Flashcards/Flashcards.jsx";
 import AIFlashcards from "./components/Regulations/AIAct/Flashcards/Flashcards.jsx";
 import CSRDFlashcards from "./components/Regulations/CSRD/Flashcards/Flashcards.jsx";
+import GDPRResults from "./components/Regulations/GDPR/Results/Results.jsx";
+import AIActResults from "./components/Regulations/AIAct/Results/Results.jsx";
+import CSRDResults from "./components/Regulations/CSRD/Results/Results.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import CSRDDashboardHome from "./components/Regulations/CSRD/Personalized_dashboard/DashboardHome.jsx";
 import GDPRDashboardHome from "./components/Regulations/GDPR/Personalized_dashboard/DashboardHome.jsx";
@@ -168,12 +171,15 @@ const App = () => {
           {/* CSRD */}
           <Route path="csrd" element={<WelcomeCSRD />} />
           <Route path="csrd/flashcards" element={<CSRDFlashcards />} />
+          <Route path="csrd/results/:assessmentId" element={<CSRDResults />} />
           {/* GDPR */}
           <Route path="gdpr" element={<WelcomeGDPR />} />
           <Route path="gdpr/flashcards" element={<GDPRFlashcards />} />
+          <Route path="gdpr/results/:assessmentId" element={<GDPRResults />} />
           {/* AI Act */}
           <Route path="ai-act" element={<WelcomeAI />} />
           <Route path="ai-act/flashcards" element={<AIFlashcards />} />
+          <Route path="ai-act/results/:assessmentId" element={<AIActResults />} />
           {/* Personalized Dashboards per regulation */}
           <Route path="csrd/dashboard" element={<CSRDDashboardHome />} />
           <Route path="gdpr/dashboard" element={<GDPRDashboardHome />} />

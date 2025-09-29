@@ -271,3 +271,85 @@ create index idx_user_settings_user_id on public.user_settings(user_id);
 
 Relationships:
 - 1:1 to *users* via *user_id*.
+
+### **11) regulation_assessments (regulation-specific flashcard assessments)**
+
+- Stores assessment responses for specific regulations (AI Act, CSRD, GDPR) separate from the initial screening.
+- Each assessment represents a user's progress through regulation-specific questions/flashcards.
+- One assessment per user per regulation (unique constraint on user_id + regulation_id).
+- Includes auto-updating progress tracking via database trigger.
+
+```sql
+create table public.regulation_assessments (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  company_id uuid not null references public.companies(id) on delete cascade,
+  regulation_id uuid not null references public.regulations(id) on delete cascade,
+  regulation_code text not null, -- 'AI_ACT', 'CSRD', 'GDPR' for easy filtering
+  
+  -- Assessment state
+  status text not null default 'in_progress' check (status in ('in_progress', 'completed', 'submitted')),
+  started_at timestamptz default now(),
+  completed_at timestamptz,
+  
+  -- Response data (JSONB for flexibility)
+  -- Format: { "question_reference": { "value": "answer", "answered_at": "timestamp" } }
+  responses jsonb not null default '{}'::jsonb,
+  
+  -- Progress tracking (auto-updated by trigger)
+  total_questions integer default 0,
+  answered_questions integer default 0,
+  progress_percentage numeric default 0,
+  
+  -- Timestamps
+  created_at timestamptz default now(),
+  updated_at timestamptz default now(),
+  
+  -- Ensure one assessment per user per regulation
+  unique (user_id, regulation_id)
+);
+
+-- Indexes for performance
+create index idx_regulation_assessments_user_id on public.regulation_assessments(user_id);
+create index idx_regulation_assessments_company_id on public.regulation_assessments(company_id);
+create index idx_regulation_assessments_regulation_id on public.regulation_assessments(regulation_id);
+create index idx_regulation_assessments_regulation_code on public.regulation_assessments(regulation_code);
+create index idx_regulation_assessments_status on public.regulation_assessments(status);
+
+-- Trigger function to auto-update progress
+create or replace function update_regulation_assessment_progress()
+returns trigger as $$
+begin
+  new.answered_questions := (
+    select count(*) 
+    from jsonb_object_keys(new.responses)
+  );
+  
+  if new.total_questions > 0 then
+    new.progress_percentage := (new.answered_questions::numeric / new.total_questions::numeric) * 100;
+  else
+    new.progress_percentage := 0;
+  end if;
+  
+  new.updated_at := now();
+  return new;
+end;
+$$ language plpgsql;
+```
+
+Relationships:
+- N:1 to *users* (a user can have multiple regulation assessments).
+- N:1 to *companies* (all assessments from users in a company).
+- N:1 to *regulations* (which regulation this assessment is for).
+
+Data flow:
+- Frontend flashcard components auto-save responses with 1-second debounce.
+- Progress is automatically calculated on each update.
+- Completion triggers status change to 'completed'.
+
+API Endpoints:
+- `GET /api/regulation-assessments/:userId/:regulationCode` - Get or create assessment
+- `PUT /api/regulation-assessments/:assessmentId/responses` - Save individual answer
+- `POST /api/regulation-assessments/:assessmentId/submit` - Mark as completed
+- `GET /api/regulation-assessments/:assessmentId/results` - Get results
+- `GET /api/regulation-assessments/company/:companyId` - Get all company assessments
