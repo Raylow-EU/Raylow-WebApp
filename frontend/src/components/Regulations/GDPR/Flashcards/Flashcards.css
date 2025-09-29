@@ -641,3 +641,108 @@
   .ai-assistant-prompt:hover .ai-chat-arrow {
     transform: translateX(4px);
   }
+  
+  /* Processing State - Integrated Design */
+  .processing-overlay {
+    min-height: calc(100vh - 80px);
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .processing-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(248, 90, 43, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 143, 107, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  
+  .processing-modal {
+    position: relative;
+    z-index: 1;
+    background: white;
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 
+      0 10px 30px rgba(0, 0, 0, 0.08),
+      0 0 0 1px rgba(255, 255, 255, 0.9);
+    animation: slideInUp 0.5s ease-out;
+  }
+  
+  .processing-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    animation: pulseGlow 2s ease-in-out infinite;
+    display: inline-block;
+  }
+  
+  .processing-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #18181b;
+    margin: 0 0 2rem 0;
+    line-height: 1.4;
+  }
+  
+  .processing-progress {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  
+  .progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .progress-dot.active {
+    transform: scale(1.3);
+    box-shadow: 0 4px 12px rgba(248, 90, 43, 0.3);
+  }
+  
+  .processing-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f3f4f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
+  
+  @keyframes pulseGlow {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.08);
+      opacity: 0.85;
+    }
+  }
+  
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

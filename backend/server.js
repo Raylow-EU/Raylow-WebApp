@@ -8,6 +8,7 @@ import { supabase } from "./config/supabase.js";
 // Import route modules
 import onboardingRoutes from "./routes/onboardingRoutes.js";
 import assessmentRoutes from "./routes/assessmentRoutes.js";
+import regulationAssessmentRoutes from "./routes/regulationAssessmentRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
 import settingsRoutes from "./routes/settingsRoutes.js";
 
@@ -47,6 +48,7 @@ app.get("/health", (req, res) => {
 // Mount route modules
 app.use("/api/onboarding", onboardingRoutes);
 app.use("/api/assessments", assessmentRoutes);
+app.use("/api/regulation-assessments", regulationAssessmentRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api", settingsRoutes);
 
